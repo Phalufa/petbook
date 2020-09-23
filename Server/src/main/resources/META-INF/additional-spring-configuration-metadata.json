@@ -1,0 +1,19 @@
+{
+	"properties": [
+		{
+			"name": "petbook.app.jwt.password",
+			"type": "java.lang.String",
+			"description": "A description for 'petbook.app.jwt.password'"
+		},
+		{
+			"name": "petbook.app.jwt.expiration",
+			"type": "java.lang.Long",
+			"description": "A description for 'petbook.app.jwt.expiration'"
+		},
+		{
+			"name": "petbook.app.cross.origin",
+			"type": "java.lang.String",
+			"description": "A description for 'petbook.app.cross.origin'"
+		}
+	]
+}
