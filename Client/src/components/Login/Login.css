@@ -1,0 +1,59 @@
+.LoginForm {
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	width: 300px;
+	text-transform: uppercase;
+}
+
+.LoginForm div {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	/* margin-bottom: 20px; */
+}
+
+.LoginForm label {
+	box-sizing: border-box;
+	background: #414141;
+	padding: 10px 10px;
+	border-radius: 5px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	font-size: 1rem;
+	border-right: 2px solid rgb(125, 171, 255);
+}
+
+.LoginForm input {
+	box-sizing: border-box;
+	width: 100%;
+	background: #414141;
+	color: white;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	outline: 0;
+	border: 0;
+	padding: 10px 10px;
+	font-size: 1rem;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.FormInputError {
+	width: 100%;
+	position: relative;
+	text-align: center;
+	color: rgb(189, 35, 35);
+}
+
+.error-section {
+	width: 100%;
+	min-height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.global-error {
+	color: rgb(189, 35, 35);
+}

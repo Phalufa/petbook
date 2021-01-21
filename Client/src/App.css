@@ -1,0 +1,27 @@
+.App {
+	min-height: 100vh;
+}
+
+.divider {
+	border: 0;
+	height: 1px;
+	background: var(--alt-bg-color);
+	background-image: linear-gradient(
+		to right,
+		var(--main-blue),
+		var(--main-bg-color)
+	);
+}
+
+.rotate {
+	transform: rotate(180deg);
+}
+
+.absolute {
+	position: absolute;
+	top: 0;
+}
+
+.full-width {
+	width: 100%;
+}

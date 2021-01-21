@@ -1,0 +1,74 @@
+.post-container {
+	width: 550px;
+}
+
+.post {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 15px 25px 23px 25px;
+	border: 0;
+	background-color: var(--alt-bg-color);
+	margin-top: 40px;
+	margin-bottom: 30px;
+	border-radius: 4px;
+}
+
+.post-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.post-header .user {
+	margin-left: 50px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	position: relative;
+}
+
+.post-footer {
+	margin-top: 50px;
+	display: flex;
+	position: relative;
+}
+
+.PostTitle {
+	width: fit-content;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;
+	text-transform: capitalize;
+}
+
+.PostDate {
+	font-size: 12px;
+	align-self: center;
+}
+
+.PostContent {
+	font-size: 16px;
+	line-height: 28px;
+	white-space: pre-wrap;
+}
+
+.PostnumOfComments {
+	font-size: 14px;
+	cursor: pointer;
+	margin-left: auto;
+}
+
+.PostnumOfComments:hover {
+	color: var(--alt-blue);
+}
+
+.heigher {
+	top: -16px;
+}
+
+.post-profile-image {
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	object-fit: cover;
+}

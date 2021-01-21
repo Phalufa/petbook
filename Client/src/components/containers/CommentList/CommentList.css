@@ -1,0 +1,21 @@
+.CommentList h4 {
+  margin: 0;
+}
+
+.CommentList h5 {
+  margin: 0;
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.blue-on-hover:hover {
+  color: var(--alt-blue);
+}
+
+.margin-top {
+  margin-top: 30px;
+}

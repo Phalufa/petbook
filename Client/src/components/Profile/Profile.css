@@ -1,0 +1,125 @@
+.Profile {
+	align-self: flex-start;
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+}
+
+.Profile h1 {
+	display: flex;
+	flex-direction: column;
+	font-size: 42px;
+	text-transform: capitalize;
+	margin: 0;
+	padding: 10px 0px;
+	text-align: center;
+}
+
+.Profile a {
+	color: var(--main-blue);
+}
+
+.Profile a:hover {
+	color: var(--alt-blue);
+}
+
+.Profile hr {
+	width: 100%;
+}
+
+.Details {
+	display: flex;
+	flex-direction: column;
+	font-size: 18px;
+	line-height: 28px;
+	margin-bottom: 20px;
+	padding: 30px 40px;
+}
+
+.Profile fieldset {
+	margin-top: 40px;
+	width: 50%;
+	padding: 30px 40px;
+	margin-left: 0;
+	margin-right: 0;
+	border: 0;
+}
+
+.Profile legend {
+	padding: 8px 16px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: 2px solid threedface;
+}
+
+.Profile legend:hover {
+	background-color: var(--main-blue);
+	border-color: var(--main-blue);
+	cursor: pointer;
+}
+
+.image-upload {
+	display: flex;
+	height: 40px;
+	justify-content: flex-start;
+	align-content: flex-end;
+	padding: 0 40px;
+	margin-bottom: 20px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+	display: none;
+}
+
+.custom-file-input:hover::before {
+	border: 0;
+	outline: 0;
+}
+
+.custom-file-input:active::before {
+	outline: 0;
+	border: 0;
+}
+
+.custom-file-input {
+	display: none;
+	border: 0;
+	outline: 0;
+	width: fit-content;
+	margin-left: 30px;
+	cursor: pointer;
+}
+
+.enlarge-icon {
+	font-size: 18px;
+}
+
+.center {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.avatar {
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+}
+
+.disabled {
+	cursor: not-allowed;
+}
+
+.edit-details {
+	padding-left: 40px;
+	margin-bottom: 20px;
+	height: 40px;
+	display: flex;
+}

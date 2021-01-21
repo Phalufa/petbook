@@ -1,0 +1,122 @@
+.SignupForm {
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	text-transform: uppercase;
+}
+
+.SignupForm div {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.SignupForm label {
+	width: 100%;
+	background: #414141;
+	padding: 10px 10px;
+	border-radius: 5px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	font-size: 1rem;
+	box-sizing: border-box;
+	border-right: 2px solid rgb(125, 171, 255);
+	cursor: pointer;
+	flex-basis: 64%;
+	white-space: nowrap;
+}
+
+.SignupForm fieldset {
+	width: 100%;
+	border: none;
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	margin-top: 0px;
+}
+
+.SignupForm legend {
+	text-align: center;
+	background-color: #414141;
+	width: 100%;
+	margin: 0;
+	padding: 10px 0px;
+	border: none;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	box-sizing: border-box;
+	border-bottom: 2px solid rgb(125, 171, 255);
+}
+
+.SignupForm input {
+	width: 100%;
+	outline: 0;
+	border: 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background: #414141;
+	color: white;
+	padding: 10px 10px;
+	font-size: 1rem;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.SignupFormDateFields {
+	display: flex;
+	height: fit-content;
+}
+
+.SignupFormDateFields select {
+	flex: 1;
+	outline: 0;
+	border: 0;
+	color: white;
+	background-color: #414141;
+	font-size: 1rem;
+	height: 2.5em;
+	padding: 0 8px;
+}
+
+.SignupFormDateFields select:focus {
+	border-bottom: 1px solid rgb(125, 171, 255);
+}
+
+.SignupForm select:first-child {
+	border-bottom-left-radius: 5px;
+}
+
+.SignupForm select:last-child {
+	border-bottom-right-radius: 5px;
+}
+
+.SubmitButton {
+	width: 70%;
+	outline: 0;
+	align-self: center;
+	padding: 10px 40px;
+	border-radius: 5px;
+	color: white;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	background-color: rgb(72, 136, 255);
+	border: 1px solid rgb(72, 136, 255);
+	cursor: pointer;
+}
+
+.SubmitButton:hover {
+	background: rgb(157, 191, 255);
+	border: 1px solid rgb(157, 191, 255);
+	color: white;
+}
+
+.SuccessMessage {
+	width: 300px;
+	position: relative;
+	top: -20px;
+	text-align: left;
+	color: rgb(17, 194, 46);
+}

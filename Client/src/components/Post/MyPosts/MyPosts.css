@@ -1,0 +1,70 @@
+.MyPosts {
+	display: flex;
+	align-items: center;
+	margin: 0 auto;
+	align-self: flex-start;
+	margin-bottom: 40px;
+}
+
+.MyPosts table {
+	margin-top: 40px;
+	width: 60vw;
+}
+
+.MyPosts td {
+	padding: 10px;
+	background-color: var(--alt-bg-color);
+}
+
+.MyPosts th {
+	background-color: var(--alt-bg-color);
+	text-transform: uppercase;
+	padding: 10px;
+}
+
+.center-text {
+	width: 100%;
+}
+
+.ConfirmBox {
+	height: 200px;
+	width: 400px;
+	background: var(--alt-bg-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.ConfirmBox h1 {
+	font-size: 24px;
+	color: var(--main-text-color);
+	align-self: flex-start;
+	text-align: center;
+	width: 100%;
+}
+
+.options {
+	display: flex;
+	width: 100%;
+	padding: 10px;
+	background-color: var(--alt-bg-color);
+}
+
+.options .space {
+	width: 20px;
+}
+
+.ConfirmBox .closeBtn {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: var(--main-text-color);
+	border: 0;
+	font-size: 24px;
+	height: fit-content;
+	margin: 0;
+}
+
+.confirm-box-header {
+	position: relative;
+}
