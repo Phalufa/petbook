@@ -1,3 +1,11 @@
-Unfinished project...
+# Petbook
 
-PetBook will be the first social media platform for our pets :)
+Call it a social media platform.
+
+- Register a new profile for your pet
+- Upload profile picture
+- post some posts & comments
+
+---
+
+### **This project is under construction**
