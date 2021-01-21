@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailNotification {
-  
+
   private String subject;
   private String recipient;
   private String content;

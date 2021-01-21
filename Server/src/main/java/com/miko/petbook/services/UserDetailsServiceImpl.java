@@ -25,16 +25,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Transactional(readOnly = true)
   @Override
   public UserDetails loadUserByUsername(String username) {
-    User user = userRepo.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException(String.format("No username with the name %s was found", username)));
+    User user = userRepo.findByUsername(username).orElseThrow(
+        () -> new UsernameNotFoundException(String.format("No username with the name %s was found", username)));
 
-    return new org.springframework.security
-            .core.userdetails.User(user.getUsername(), user.getPassword(),
-            user.isEnabled(), true, true,
-            true, getAuthorities("USER"));
+    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        user.isEnabled(), true, true, true, getAuthorities("USER"));
   }
 
   private Collection<? extends GrantedAuthority> getAuthorities(String role) {
-      return singletonList(new SimpleGrantedAuthority(role));
+    return singletonList(new SimpleGrantedAuthority(role));
   }
 }

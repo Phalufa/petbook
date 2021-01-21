@@ -14,6 +14,16 @@
 			"name": "petbook.app.cross.origin",
 			"type": "java.lang.String",
 			"description": "A description for 'petbook.app.cross.origin'"
+		},
+		{
+			"name": "petbook.aws.id",
+			"type": "java.lang.String",
+			"description": "A description for 'petbook.aws.id'"
+		},
+		{
+			"name": "petbook.aws.secret",
+			"type": "java.lang.String",
+			"description": "A description for 'petbook.aws.secret'"
 		}
 	]
 }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 
-
 @Component
 @AllArgsConstructor
 public class CommentMapper {
@@ -23,35 +22,26 @@ public class CommentMapper {
   public Comment mapToComment(CommentDto commentDto, Post post, User user) {
     if (commentDto == null)
       throw new NullPointerException("Error: CommentDto cannot be null");
-      
+
     if (commentDto.getContent() == null || commentDto.getContent().length() < 1)
       throw new NullPointerException("Error: CommentDto content cannot be empty");
 
-    return Comment.builder()
-                  .post(post)
-                  .user(user)
-                  .content(commentDto.getContent())
-                  .timeCreated(Instant.now())
-                  .build();
+    return Comment.builder().post(post).user(user).content(commentDto.getContent()).timeCreated(Instant.now()).build();
   }
 
   public CommentDto mapToCommentDto(Comment comment) {
-    return CommentDto.builder()
-                     .id(comment.getId())
-                     .postId(comment.getPost().getId())
-                     .username(comment.getUser().getUsername())
-                     .content(comment.getContent())
-                     .timeCreated(MapperUtils.dateFormatter(comment.getTimeCreated()))
-                     .build();
+    return CommentDto.builder().id(comment.getId()).postId(comment.getPost().getId())
+        .username(comment.getUser().getUsername()).content(comment.getContent())
+        .timeCreated(MapperUtils.dateFormatter(comment.getTimeCreated())).build();
   }
 
   public Comment mapToCommentForUpdate(CommentDto commentDto) throws CommentNotFoundException {
     Comment comment = commentRepo.findById(commentDto.getId())
-                                 .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
-                                 
-    if (commentDto.getPostId() != comment.getPost().getId())
+        .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
+
+    if (!commentDto.getPostId().equals(comment.getPost().getId()))
       throw new CommentNotFoundException("Error: the comment to update has a different post id");
-    
+
     if (commentDto.getContent() != null || !(commentDto.getContent().equalsIgnoreCase(comment.getContent())))
       comment.setContent(commentDto.getContent());
 

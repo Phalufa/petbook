@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/api/comments")
 @AllArgsConstructor
 public class CommentController {
-  
+
   private final CommentService commentService;
 
   @PostMapping
@@ -33,11 +32,11 @@ public class CommentController {
   }
 
   @PatchMapping("/{id}")
-  public ResponseEntity<?> updateComment(@RequestBody CommentDto commentDto, @PathVariable Long id) 
-                                             throws NotAllowedException, CommentNotFoundException {
+  public ResponseEntity<?> updateComment(@RequestBody CommentDto commentDto, @PathVariable Long id)
+      throws NotAllowedException, CommentNotFoundException {
     return ResponseEntity.ok(commentService.updateComment(commentDto, id));
   }
-  
+
   @GetMapping("/{id}")
   public ResponseEntity<?> getComment(@PathVariable Long id) throws CommentNotFoundException {
     return ResponseEntity.ok(commentService.getComment(id));
@@ -56,8 +55,7 @@ public class CommentController {
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteComment(@PathVariable Long id) throws NotAllowedException {
     int status = commentService.deleteComment(id);
-    return status == 204 ? 
-                ResponseEntity.status(status).build() : 
-                ResponseEntity.ok("Comment has been deleted successfully");
+    return status == 204 ? ResponseEntity.status(status).build()
+        : ResponseEntity.ok("Comment has been deleted successfully");
   }
 }

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,13 +23,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "comments")
 public class Comment {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @ManyToOne
   @JoinColumn(name = "postId", referencedColumnName = "id")
   private Post post;
+  @Lob
   private String content;
   @ManyToOne
   @JoinColumn(name = "userId", referencedColumnName = "id")

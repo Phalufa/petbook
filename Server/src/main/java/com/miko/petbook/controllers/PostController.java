@@ -4,6 +4,7 @@ import com.miko.petbook.dtos.PostRequest;
 import com.miko.petbook.exceptions.NotAllowedException;
 import com.miko.petbook.exceptions.PostNotFoundException;
 import com.miko.petbook.exceptions.UserNotFoundException;
+import com.miko.petbook.models.PostPage;
 import com.miko.petbook.services.PostService;
 
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,13 @@ import lombok.AllArgsConstructor;
 @RequestMapping("api/posts")
 @AllArgsConstructor
 public class PostController {
-  
+
   private final PostService postService;
+
+  @PostMapping("/page")
+  public ResponseEntity<?> getPostsByPage(@RequestBody PostPage page) {
+    return ResponseEntity.ok(postService.getPostsByPage(page));
+  }
 
   @PostMapping
   public ResponseEntity<?> createPost(@RequestBody PostRequest request) {
@@ -46,16 +52,15 @@ public class PostController {
   }
 
   @PatchMapping("/{id}")
-  public ResponseEntity<?> updatePost(@RequestBody PostRequest request, @PathVariable Long id) 
-                                             throws NotAllowedException, PostNotFoundException {
+  public ResponseEntity<?> updatePost(@RequestBody PostRequest request, @PathVariable Long id)
+      throws NotAllowedException, PostNotFoundException {
     return ResponseEntity.ok(postService.updatePost(request, request.getId()));
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deletePost(@PathVariable Long id) throws NotAllowedException {
     int status = postService.deletePost(id);
-    return status == 204 ? 
-                ResponseEntity.status(status).build() : 
-                ResponseEntity.ok("Post has been deleted successfully");
+    return status == 204 ? ResponseEntity.status(status).build()
+        : ResponseEntity.ok("Post has been deleted successfully");
   }
 }

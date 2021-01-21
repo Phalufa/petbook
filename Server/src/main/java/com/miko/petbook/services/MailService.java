@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MailService {
 
   private final static String EMAIL_FROM = "miko@petbook.com";
-  
+
   private final JavaMailSender mailSender;
   private final MailBuilderService mailBuilder;
 

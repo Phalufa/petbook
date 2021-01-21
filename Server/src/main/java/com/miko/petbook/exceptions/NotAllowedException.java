@@ -7,5 +7,5 @@ public class NotAllowedException extends Exception {
   public NotAllowedException(String msg) {
     super(msg);
   }
-  
+
 }

@@ -10,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostResponse {
-  
+
   private Long postId;
   private String username;
+  private String userImage;
   private String url;
   private String title;
   private String content;

@@ -19,22 +19,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
     @Bean
     public Docket redditCloneApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
-                .build()
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any()).paths(Predicates.not(PathSelectors.regex("/error.*"))).build()
                 .apiInfo(getApiInfo());
     }
 
     private ApiInfo getApiInfo() {
-        return new ApiInfoBuilder()
-                .title("Petbook API")
-                .version("1.0b")
-                .description("Petbook Social Media API")
+        return new ApiInfoBuilder().title("Petbook API").version("1.0b").description("Petbook Social Media API")
                 .contact(new Contact("Gal Chaimowicz", "http://chgal.com", "gchaimowicz@email.com"))
-                .license("Apache License Version 2.0")
-                .build();
+                .license("Apache License Version 2.0").build();
     }
 }

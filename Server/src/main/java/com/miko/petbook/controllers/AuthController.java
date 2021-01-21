@@ -23,18 +23,20 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 public class AuthController {
-  
+
   private final AuthService authService;
   private final RefreshTokenService refreshTokenService;
 
   @PostMapping("/signup")
   public ResponseEntity<?> signUp(@RequestBody SignupRequest request) throws UserAlreadyExistsException {
     authService.signup(request);
-    return ResponseEntity.ok("Thank you for registering! A confirmation email has been sent to. To continue Please verify your account");
+    return ResponseEntity.ok(
+        "Thank you for registering! To continue Please verify your account via an a link that has been sent to your email");
   }
 
   @GetMapping("/accountverification/{token}")
-  public ResponseEntity<?> verifyAccount(@PathVariable String token) throws InvalidTokenException, UserNotFoundException {
+  public ResponseEntity<?> verifyAccount(@PathVariable String token)
+      throws InvalidTokenException, UserNotFoundException {
     authService.verifyAccount(token);
     return ResponseEntity.ok("Your account is now verified");
   }

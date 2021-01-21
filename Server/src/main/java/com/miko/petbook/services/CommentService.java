@@ -31,14 +31,15 @@ public class CommentService {
 
   public CommentDto createComment(CommentDto commentDto) throws PostNotFoundException {
     Post post = postRepo.findById(commentDto.getPostId())
-                        .orElseThrow(() -> new PostNotFoundException("Error: Post not found - cannot map to comment"));
+        .orElseThrow(() -> new PostNotFoundException("Error: Post not found - cannot map to comment"));
     Comment comment = commentMapper.mapToComment(commentDto, post, authService.getCurrentUser());
     return commentMapper.mapToCommentDto(commentRepo.save(comment));
   }
 
-  public CommentDto updateComment(CommentDto commentDto, Long commentId) throws CommentNotFoundException, NotAllowedException {
+  public CommentDto updateComment(CommentDto commentDto, Long commentId)
+      throws CommentNotFoundException, NotAllowedException {
     Comment oldComment = commentRepo.findById(commentId)
-                                 .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
+        .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
     User cUser = authService.getCurrentUser();
     if (!(oldComment.getUser().equals(cUser)))
       throw new NotAllowedException("Error: You are not allowed to edit this comment");
@@ -47,29 +48,26 @@ public class CommentService {
     commentRepo.update(modifiedComment.getId(), modifiedComment.getContent());
     return commentMapper.mapToCommentDto(commentRepo.findById(commentId).get());
   }
-  
+
   @Transactional(readOnly = true)
   public CommentDto getComment(Long id) throws CommentNotFoundException {
     Comment comment = commentRepo.findById(id)
-                                 .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
+        .orElseThrow(() -> new CommentNotFoundException("Error: Comment not found"));
     return commentMapper.mapToCommentDto(comment);
   }
 
   @Transactional(readOnly = true)
   public List<CommentDto> getAllPostComments(Long postId) throws PostNotFoundException {
-    Post post = postRepo.findById(postId).orElseThrow(() -> new PostNotFoundException("Error: cannot retrieve comments - post not found"));
-    return commentRepo.findAllByPost(post)
-                      .stream()
-                      .map(comment -> commentMapper.mapToCommentDto(comment))
-                      .collect(Collectors.toList());
+    Post post = postRepo.findById(postId)
+        .orElseThrow(() -> new PostNotFoundException("Error: cannot retrieve comments - post not found"));
+    return commentRepo.findAllByPost(post).stream().map(comment -> commentMapper.mapToCommentDto(comment))
+        .collect(Collectors.toList());
   }
 
   @Transactional(readOnly = true)
   public List<CommentDto> getAllCommentsByUser() {
-    return commentRepo.findAllByUser(authService.getCurrentUser())
-                      .stream()
-                      .map(comment -> commentMapper.mapToCommentDto(comment))
-                      .collect(Collectors.toList());
+    return commentRepo.findAllByUser(authService.getCurrentUser()).stream()
+        .map(comment -> commentMapper.mapToCommentDto(comment)).collect(Collectors.toList());
   }
 
   public int deleteComment(Long id) throws NotAllowedException {

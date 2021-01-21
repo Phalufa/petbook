@@ -21,39 +21,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserDetailsService userDetailsService;
   private final JwtAuthenticationFilter jwtAuthFilter;
-  
+
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable()
-      .authorizeRequests()
-      .antMatchers("/api/auth/**")
-      .permitAll()
-      .antMatchers("/v2/api-docs",
-                        "/configuration/ui",
-                        "/swagger-resources/**",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**")
-      .permitAll()
-      .anyRequest()
-      .authenticated()
-      .and().addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+    http.csrf().disable().authorizeRequests()
+        .antMatchers("/api/auth/**", "/api/user/**/image/download", "/api/user/image/profile/**").permitAll()
+        .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security",
+            "/swagger-ui.html", "/webjars/**")
+        .permitAll().anyRequest().authenticated().and().cors();
+
+    http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-    authenticationManagerBuilder.userDetailsService(userDetailsService)
-                                .passwordEncoder(passwordEncoder());
+    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
   }
 
   @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }

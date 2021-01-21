@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
-  
-  @ExceptionHandler({CommentNotFoundException.class, PostNotFoundException.class, UserNotFoundException.class})
+
+  @ExceptionHandler({ CommentNotFoundException.class, PostNotFoundException.class, UserNotFoundException.class })
   private ResponseEntity<?> notFoundHandler(Exception e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
   }
@@ -30,13 +30,13 @@ public class ControllerExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
   }
 
-  @ExceptionHandler({InvalidTokenException.class})
+  @ExceptionHandler({ InvalidTokenException.class })
   private ResponseEntity<?> invalidToken(RuntimeException e) {
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
   }
 
-  // @ExceptionHandler({RuntimeException.class})
-  // private ResponseEntity<?> runtimeError(RuntimeException e) {
-  //   return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-  // }
+  @ExceptionHandler({ RuntimeException.class })
+  private ResponseEntity<?> runtimeError(RuntimeException e) {
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+  }
 }

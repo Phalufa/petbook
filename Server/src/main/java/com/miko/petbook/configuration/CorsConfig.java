@@ -10,17 +10,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
   @Value("${petbook.app.cross.origin}")
-	private String react;
-  
+  private String react;
+
   @Bean
   public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .allowedOrigins(react);
+        registry.addMapping("/**").allowedMethods("*").allowedHeaders("*").allowedOrigins("*");
       }
     };
   }

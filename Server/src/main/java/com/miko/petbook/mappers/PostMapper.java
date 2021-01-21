@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 
-
 @Component
 @AllArgsConstructor
 public class PostMapper {
@@ -28,29 +27,21 @@ public class PostMapper {
     if (request == null)
       throw new NullPointerException("Error: Post request cannot be null");
 
-    return Post.builder()
-               .user(user)
-               .title(request.getTitle())
-               .content(request.getContent())
-               .url(generateUrl(request, user))
-               .timeCreated(Instant.now()).build();
+    return Post.builder().user(user).title(request.getTitle()).content(request.getContent())
+        .url(generateUrl(request, user)).timeCreated(Instant.now()).build();
   }
 
   public PostResponse mapToPostResponse(Post post) {
-    return PostResponse.builder()
-                       .postId(post.getId())
-                       .username(post.getUser().getUsername())
-                       .title(post.getTitle())
-                       .content(post.getContent())
-                       .url(post.getUrl())
-                       .numOfComments((int)(commentRepo.countByPostId(post.getId())))
-                       .timeCreated(MapperUtils.dateFormatter(post.getTimeCreated())).build();
+    return PostResponse.builder().postId(post.getId()).username(post.getUser().getUsername())
+        .userImage(post.getUser().getImage()).title(post.getTitle()).content(post.getContent()).url(post.getUrl())
+        .numOfComments((int) (commentRepo.countByPostId(post.getId())))
+        .timeCreated(MapperUtils.dateFormatter(post.getTimeCreated())).build();
   }
 
   public Post mapToPostForUpdate(PostRequest request) throws PostNotFoundException {
     Post post = postRepo.findById(request.getId())
-                        .orElseThrow(() -> new PostNotFoundException("Error: Post not found"));
-                        
+        .orElseThrow(() -> new PostNotFoundException("Error: Post not found"));
+
     if (request.getTitle() != null || request.getTitle().equalsIgnoreCase(post.getTitle()))
       post.setTitle(request.getTitle());
 

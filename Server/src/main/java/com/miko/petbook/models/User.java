@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 public class User {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -33,6 +33,7 @@ public class User {
   private String password;
   private String firstName;
   private String lastName;
+  private String image;
   private Date dateOfBirth;
   private boolean isEnabled;
   private Instant timeCreated;
