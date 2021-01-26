@@ -12,4 +12,6 @@ Call it a social media platform.
 
 ---
 
+## Preview
+
 ![Petbook image](./peek.png)
