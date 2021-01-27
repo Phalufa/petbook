@@ -4,6 +4,7 @@ import './Main.css'
 import { appRoutes } from '../../../helpers/routes'
 import Loader from '../../UI/Loader/Loader'
 import CreatePost from '../../Post/CreatePost/CreatePost'
+import Notification from '../../UI/Notification/Notification'
 
 const Main = ({ createPost, toggleCreatePostComponent }) => {
 	// user loggedIn state
@@ -14,6 +15,7 @@ const Main = ({ createPost, toggleCreatePostComponent }) => {
 	return (
 		<div className="Main">
 			<Loader />
+			<Notification milliseconds={6000} />
 			{createPost && (
 				<CreatePost toggleCreatePostComponent={toggleCreatePostComponent} />
 			)}

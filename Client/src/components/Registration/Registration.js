@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom'
 
 const Registration = () => {
 	const dispatch = useDispatch()
-	const error = useSelector(state => state.register.error)
 	const signed = useSelector(state => state.register.signed)
 
 	const validate = values => {
@@ -183,7 +182,6 @@ const Registration = () => {
 					{form.touched.dateOfBirth && form.errors.dateOfBirth ? (
 						<span className="FormInputError">{form.errors.dateOfBirth}</span>
 					) : null}
-					{error ? <span className="FormInputError">{error}</span> : null}
 					<button type="submit" className="SubmitButton">
 						Submit
 					</button>

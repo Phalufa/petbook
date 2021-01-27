@@ -6,117 +6,85 @@ const initialState = {
 		all: []
 	},
 	lastPage: false,
-	pageNumber: 0,
-	error: null
+	pageNumber: 0
 }
 
 export const postReducer = (state = initialState, action) => {
-	let updatedPosts, users, all // copy of posts state object
+	let a, u
 	switch (action.type) {
 		case postActionTypes.GET_POST_PAGE_REQUEST:
-			return { ...state, requestPosts: true, lastPage: action.payload.lastPage }
+			return { ...state, lastPage: action.payload.lastPage }
 		case postActionTypes.GET_POST_PAGE_SUCCESS:
-			all = [...state.posts.all, ...action.payload.posts.all].filter(
-				(v, i, a) => a.findIndex(t => t.postId === v.postId) === i
-			)
-			updatedPosts = {
-				user: [...state.posts.user],
-				all
-			}
+			a = filterEquals([...state.posts.all, ...action.payload.posts.all])
 			return {
 				...state,
-				requestPosts: false,
-				posts: updatedPosts,
+				posts: { user: [...state.posts.user], all: a },
 				lastPage: action.payload.lastPage,
-				pageNumber: action.payload.pageNumber,
-				error: null
+				pageNumber: action.payload.pageNumber
 			}
 		case postActionTypes.GET_POST_PAGE_FAILED:
-			return {
-				...state,
-				requestPosts: false,
-				...action.error
-			}
+			return { ...state }
 		case postActionTypes.CLEAR_POSTS:
 			return {
 				...state,
-				posts: {
-					user: [],
-					all: []
-				},
+				posts: { user: [], all: [] },
 				lastPage: false,
 				pageNumber: 0
 			}
 		case postActionTypes.GET_ALL_POSTS_REQUEST:
-			return { ...state, requestPosts: true }
+			return { ...state }
 		case postActionTypes.GET_ALL_POSTS_SUCCESS:
-			return { requestPosts: false, posts: action.payload.posts, error: null }
+			return { ...state, posts: action.payload.posts }
 		case postActionTypes.GET_ALL_POSTS_FAILED:
-			return { ...state, requestPosts: false, ...action.error }
+			return { ...state }
 		case postActionTypes.GET_USER_POSTS_REQUEST:
-			return { ...state, requestPosts: true }
+			return { ...state }
 		case postActionTypes.GET_USER_POSTS_SUCCESS:
-			return {
-				...state,
-				requestPosts: false,
-				posts: action.payload.posts,
-				error: null
-			}
+			return { ...state, posts: action.payload.posts }
 		case postActionTypes.GET_USER_POSTS_FAILED:
-			return { ...state, requestPosts: false, ...action.error }
+			return { ...state }
 		case postActionTypes.CREATE_POST_REQUEST:
-			return { ...state, requestCreatePost: true }
+			return { ...state }
 		case postActionTypes.CREATE_POST_SUCCESS:
-			updatedPosts = {
-				user: [action.payload.newPost, ...state.posts.user],
-				all: [action.payload.newPost, ...state.posts.all]
-			}
 			return {
 				...state,
-				requestCreatePost: false,
-				posts: updatedPosts,
-				error: null
+				posts: {
+					user: [action.payload.newPost, ...state.posts.user],
+					all: [action.payload.newPost, ...state.posts.all]
+				}
 			}
 		case postActionTypes.CREATE_POST_FAILED:
-			return { ...state, requestCreatePost: false, ...action.error }
+			return { ...state }
 		case postActionTypes.DELETE_POST_REQUEST:
-			return { ...state, requestDeletePost: true }
+			return { ...state }
 		case postActionTypes.DELETE_POST_SUCCESS:
-			updatedPosts = { ...state.posts }
-			updatedPosts.user = updatedPosts.user.filter(
-				p => p.postId !== action.payload.deletedPostId
-			)
-			updatedPosts.all = updatedPosts.all.filter(
+			u = [...state.posts.user].filter(
 				p => p.postId !== action.payload.deletedPostId
 			)
 			return {
 				...state,
-				requestDeletePost: false,
-				posts: updatedPosts,
-				message: action.payload.message,
-				error: null
+				posts: { user: u, all: [...state.posts.all] }
 			}
 		case postActionTypes.DELETE_POST_FAILED:
-			return { ...state, requestDeletePost: false, ...action.error }
+			return { ...state }
 		case postActionTypes.UPDATE_POST_REQUEST:
-			return { ...state, requestUpdatePost: true }
+			return { ...state }
 		case postActionTypes.UPDATE_POST_SUCCESS:
-			users = [...state.posts.user].map(p => {
+			u = [...state.posts.user].map(p => {
 				if (p.postId !== action.payload.updatedPost.postId) return p
 				else return { ...p, ...action.payload.updatedPost }
 			})
-			all = [...state.posts.all]
-			updatedPosts = { user: users, all }
 			return {
 				...state,
-				requestUpdatePost: false,
-				posts: updatedPosts,
-				message: action.payload.message,
-				error: null
+				posts: { user: u, all: [...state.posts.all] }
 			}
 		case postActionTypes.UPDATE_POST_FAILED:
-			return { ...state, requestUpdatePost: false, ...action.error }
+			return { ...state }
 		default:
 			return state
 	}
+}
+
+const filterEquals = arr => {
+	return arr.filter((v, i, a) => a.findIndex(t => t.postId === v.postId) === i)
 }

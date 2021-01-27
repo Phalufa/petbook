@@ -11,7 +11,6 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
-	/* margin-bottom: 20px; */
 }
 
 .LoginForm label {
@@ -43,7 +42,7 @@
 	width: 100%;
 	position: relative;
 	text-align: center;
-	color: rgb(189, 35, 35);
+	color: var(--error-color);
 }
 
 .error-section {
@@ -52,8 +51,4 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.global-error {
-	color: rgb(189, 35, 35);
 }

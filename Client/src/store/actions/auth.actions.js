@@ -41,7 +41,7 @@ const registerAccount = signupRequest => {
 					success(authActionTypes.REGISTER_SUCCESS, {
 						signed: true,
 						verified: false,
-						response: result
+						message: result
 					})
 				)
 			else dispatch(fail(authActionTypes.REGISTER_FAILED, { error: result }))
@@ -56,7 +56,7 @@ const verifyAccount = verificationToken => {
 			if (result.startsWith('Your'))
 				dispatch(
 					success(authActionTypes.VERIFY_ACCOUNT_SUCCESS, {
-						verificationResult: result,
+						message: result,
 						verified: true
 					})
 				)

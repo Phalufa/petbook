@@ -112,11 +112,3 @@
 	border: 1px solid rgb(157, 191, 255);
 	color: white;
 }
-
-.SuccessMessage {
-	width: 300px;
-	position: relative;
-	top: -20px;
-	text-align: left;
-	color: rgb(17, 194, 46);
-}

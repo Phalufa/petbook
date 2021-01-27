@@ -3,11 +3,12 @@ import './Verification.css'
 import { useFormik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/actions/auth.actions'
+import { Redirect } from 'react-router-dom'
 
 const Verification = () => {
 	const dispatch = useDispatch()
-	const verified = useSelector(state => state.register.verified)
-	const signupResponse = useSelector(state => state.register.response)
+	const isVerified = useSelector(state => state.register.verified)
+	const isLoggedIn = useSelector(state => state.auth.loggedIn)
 
 	const validate = values => {
 		const errors = {}
@@ -29,33 +30,33 @@ const Verification = () => {
 
 	return (
 		<>
-			<form onSubmit={form.handleSubmit} className="VerifyAccountForm">
-				<div>
-					<label htmlFor="verificationToken">Account Verification Token</label>
-					<input
-						id="verificationToken"
-						name="verificationToken"
-						type="text"
-						onChange={form.handleChange}
-						onBlur={form.handleBlur}
-						value={form.values.verificationToken}
-					/>
-				</div>
-				{form.touched.verificationToken && form.errors.verificationToken ? (
-					<span className="FormInputError">
-						{form.errors.verificationToken}
-					</span>
-				) : null}
-				{signupResponse && (
-					<span className="SuccessMessage">{signupResponse}</span>
-				)}
-				{verified && (
-					<span className="SuccessMessage">Your account is now activated</span>
-				)}
-				<button type="submit" className="SubmitButton">
-					Submit
-				</button>
-			</form>
+			{isVerified || isLoggedIn ? (
+				<Redirect to="home" />
+			) : (
+				<form onSubmit={form.handleSubmit} className="VerifyAccountForm">
+					<div>
+						<label htmlFor="verificationToken">
+							Account Verification Token
+						</label>
+						<input
+							id="verificationToken"
+							name="verificationToken"
+							type="text"
+							onChange={form.handleChange}
+							onBlur={form.handleBlur}
+							value={form.values.verificationToken}
+						/>
+					</div>
+					{form.touched.verificationToken && form.errors.verificationToken ? (
+						<span className="FormInputError">
+							{form.errors.verificationToken}
+						</span>
+					) : null}
+					<button type="submit" className="SubmitButton">
+						Submit
+					</button>
+				</form>
+			)}
 		</>
 	)
 }

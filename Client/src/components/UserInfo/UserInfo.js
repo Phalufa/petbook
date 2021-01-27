@@ -16,7 +16,7 @@ const UserInfo = ({ author }) => {
       {
         info &&
         <section className="info">
-          <img src={userService.getUserProfileImage(author)} alt="" />
+          <img src={userService.getUserProfileImage(author)} alt={author} />
           <div className="flex-column">
             <span>{author}</span>
             <span>{info.firstName}&nbsp;{info.lastName}</span>

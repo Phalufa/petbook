@@ -7,7 +7,8 @@ const rootReducer = combineReducers({
 	register: Reducers.registerReducer,
 	posts: Reducers.postReducer,
 	user: Reducers.userReducer,
-	comments: Reducers.commentReducer
+	comments: Reducers.commentReducer,
+	requests: Reducers.requestReducer
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const enhancer = composeEnhancers(applyMiddleware(thunk))
