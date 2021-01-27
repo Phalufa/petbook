@@ -1,5 +1,5 @@
 import { authActionTypes } from '../actions/actionTypes/index'
-import { authentication as auth } from '../../helpers/authentication'
+import { authentication as auth } from '../../services/helpers/index'
 
 const initialState = {
 	loggedIn: auth.getUser() ? true : false,

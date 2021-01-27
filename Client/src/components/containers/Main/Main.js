@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import './Main.css'
-import { appRoutes } from '../../../helpers/routes'
+import { appRoutes } from '../../helpers/index'
 import Loader from '../../UI/Loader/Loader'
 import CreatePost from '../../Post/CreatePost/CreatePost'
 import Notification from '../../UI/Notification/Notification'

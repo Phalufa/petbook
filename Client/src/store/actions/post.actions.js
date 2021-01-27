@@ -1,10 +1,10 @@
-import { request, success, fail } from '../../helpers/dispatchers'
+import { request, success, fail } from '../helpers/index'
 import { postService } from '../../services/index'
 import { postActionTypes } from './actionTypes'
 import {
 	refreshTokenInterceptor,
 	refreshTokenInterceptorIncBody
-} from '../../utils/interceptors'
+} from '../../services/helpers/index'
 
 const postPagination = (dispatch, postPage) => {
 	postService.getPostPage(postPage).then(result => {

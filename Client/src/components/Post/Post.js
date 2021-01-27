@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './Post.css'
 import CommentList from '../containers/CommentList/CommentList'
-import { createdTime } from '../../helpers/time'
+import { createdTime } from '../../utils/time'
 import { userService } from '../../services'
 import UserInfo from '../UserInfo/UserInfo'
-import { useClickOutside } from '../../helpers/hooks'
+import { useClickOutside } from '../../hooks/index'
 
 const Post = ({ user, userImage, title, date, content, numOfComments, id }) => {
 	const [toggleComments, setToggleComments] = useState(true)

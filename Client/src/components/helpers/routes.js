@@ -1,10 +1,10 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Login from '../components/Login/Login'
-import Profile from '../components/Profile/Profile'
-import Register from '../components/Registration/Registration'
-import Verification from '../components/Verification/Verification'
-import PostList from '../components/containers/PostList/PostList'
-import MyPosts from '../components/Post/MyPosts/MyPosts'
+import Login from '../Login/Login'
+import Profile from '../Profile/Profile'
+import Register from '../Registration/Registration'
+import Verification from '../Verification/Verification'
+import PostList from '../containers/PostList/PostList'
+import MyPosts from '../Post/MyPosts/MyPosts'
 
 /**
  * app routes are imported in Main component

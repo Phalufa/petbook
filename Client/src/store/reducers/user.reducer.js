@@ -1,5 +1,5 @@
 import { userActionTypes } from '../actions/actionTypes/index'
-import { authentication as auth } from '../../helpers/authentication'
+import { authentication as auth } from '../../services/helpers/index'
 
 const initialState = {
 	username: auth.getUser() ? auth.getUser() : null,

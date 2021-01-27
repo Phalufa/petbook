@@ -1,7 +1,7 @@
 import './MyPosts.css'
 import { useDispatch } from 'react-redux'
 import { commentActions, postActions } from '../../../store/actions'
-import { useNoScroll } from '../../../helpers/hooks'
+import { useNoScroll } from '../../../hooks/index'
 
 /**
  * Confirm Box will pop out each time the user

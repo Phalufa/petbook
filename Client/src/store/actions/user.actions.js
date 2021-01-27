@@ -1,10 +1,10 @@
 import { userActionTypes } from './actionTypes/index'
 import { userService } from '../../services/index'
-import { request, success, fail } from '../../helpers/dispatchers'
+import { request, success, fail } from '../helpers/index'
 import {
 	refreshTokenInterceptor,
 	refreshTokenInterceptorIncBody
-} from '../../utils/interceptors'
+} from '../../services/helpers/index'
 
 const getUserDetails = dispatch => {
 	userService.getUserDetails().then(result => {

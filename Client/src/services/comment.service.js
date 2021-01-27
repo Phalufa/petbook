@@ -1,4 +1,4 @@
-import { options, API_URL } from '../helpers/options'
+import { options, API_URL } from './helpers/options'
 
 const getComment = async commentId => {
 	try {

@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import * as Utils from '../../utils/validations'
 import { connect } from 'react-redux'
 import { userActions } from '../../store/actions/index'
-import { useNoScroll } from '../../helpers/hooks'
+import { useNoScroll } from '../../hooks/index'
 
 const EditUserDetails = ({
   username,

@@ -4,7 +4,7 @@ import { useFormik } from 'formik'
 import { checkRequired } from '../../../utils/validations'
 import { useDispatch } from 'react-redux'
 import { postActions } from '../../../store/actions'
-import { useNoScroll } from '../../../helpers/hooks'
+import { useNoScroll } from '../../../hooks/index'
 
 const CreatePost = ({ toggleCreatePostComponent }) => {
 	const dispatch = useDispatch()
