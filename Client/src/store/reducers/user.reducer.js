@@ -40,6 +40,12 @@ export const userReducer = (state = initialState, action) => {
 			}
 		case userActionTypes.UPDATE_USER_DETAILS_FAILED:
 			return { ...state }
+		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_REQUEST:
+			return { ...state }
+		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_SUCCESS:
+			return { ...state }
+		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_FAILED:
+			return { ...state }
 		default:
 			return state
 	}

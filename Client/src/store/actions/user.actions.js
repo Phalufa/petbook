@@ -59,7 +59,33 @@ const updateProfile = updateUserRequest =>
 		updateUserRequest
 	)
 
+const uploadImage = (dispatch, image, userId) => {
+	userService.uploadUserImage(image, userId).then(result => {
+		if (result.startsWith('Image'))
+			dispatch(
+				success(userActionTypes.UPLOAD_USER_PROFILE_IMAGE_SUCCESS, {
+					message: result
+				})
+			)
+		else
+			dispatch(
+				fail(userActionTypes.UPLOAD_USER_PROFILE_IMAGE_FAILED, {
+					error: result
+				})
+			)
+	})
+}
+
+const uploadUserImage = (image, userId) =>
+	refreshTokenInterceptorIncBody(
+		request(userActionTypes.UPLOAD_USER_PROFILE_IMAGE_REQUEST, {}),
+		uploadImage,
+		image,
+		userId
+	)
+
 export const userActions = {
 	getProfile,
-	updateProfile
+	updateProfile,
+	uploadUserImage
 }

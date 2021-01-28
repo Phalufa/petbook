@@ -9,11 +9,11 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { userService } from '../../services'
 
-const Profile = () => {
+const Profile = ({ uploadUserImage }) => {
 	const isLoggedIn = useSelector(state => state.auth.loggedIn)
 	const username = useSelector(state => state.auth.user)
 	const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
 	const [toggleEdit, setToggleEdit] = useState(false)
 	const [img, setImg] = useState(null)
@@ -52,7 +52,7 @@ const Profile = () => {
 
 	const uploadAvatar = event => {
 		event.preventDefault()
-		userService.uploadUserImage(img, id)
+		dispatch(userActions.uploadUserImage(img, id))
 	}
 
 	return (

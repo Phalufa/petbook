@@ -44,9 +44,9 @@ const updateUserDetails = async updateUserRequest => {
 	}
 }
 
-const uploadUserImage = async (imageUploadRequest, userId) => {
+const uploadUserImage = async (image, userId) => {
 	const formData = new FormData()
-	formData.append('image', imageUploadRequest)
+	formData.append('image', image)
 	const options = {
 		method: 'POST',
 		headers: {

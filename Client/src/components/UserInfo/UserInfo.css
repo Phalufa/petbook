@@ -2,9 +2,9 @@
 	cursor: default;
 	position: absolute;
 	display: flex;
-  bottom: -100px;
-  right: 0;
-  height: 100px;
+	bottom: -100px;
+	right: 0;
+	height: 100px;
 	z-index: 50;
 	background: var(--main-bg-color);
 	border-radius: 4px;
@@ -13,11 +13,11 @@
 }
 
 .user-info-container img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 
 .user-info-container .info {
@@ -27,6 +27,6 @@
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
