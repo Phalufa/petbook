@@ -1,10 +1,10 @@
 import React from 'react'
 import './EditUserDetails.css'
 import { useFormik } from 'formik'
-import * as Utils from '../../utils/validations'
+import * as Utils from '../../utils'
 import { useDispatch } from 'react-redux'
-import { userActions } from '../../store/actions/index'
-import { useNoScroll } from '../../hooks/index'
+import { userActions } from '../../store/actions'
+import { useNoScroll } from '../../hooks'
 
 const EditUserDetails = ({
 	username,

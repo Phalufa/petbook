@@ -1,0 +1,47 @@
+.UserMenu {
+	background: var(--alt-bg-color);
+	position: absolute;
+	top: 50px;
+	right: 10px;
+}
+
+.UserMenu ul {
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.UserMenu li {
+	padding: 10px 10px;
+	cursor: pointer;
+}
+
+.UserMenu li:last-of-type {
+	border: 0;
+}
+
+.UserMenu li:hover {
+	color: black;
+	background-color: var(--alt-blue);
+}
+
+.UserMenu li > span {
+	margin-right: 10px;
+}
+
+.UserMenu span:nth-child(2) {
+	margin-right: 14px;
+}
+
+.UserMenu li > span::after {
+	content: '';
+	margin-left: 10px;
+	box-sizing: content-box;
+}
+
+.UserMenu a {
+	color: white;
+	text-decoration: none;
+}

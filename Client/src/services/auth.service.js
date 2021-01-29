@@ -1,5 +1,4 @@
-import { options, API_URL } from './helpers/options'
-import { authentication as auth } from './helpers/authentication'
+import { options, API_URL, authentication as auth } from './helpers'
 
 const login = async (username, password) => {
 	try {

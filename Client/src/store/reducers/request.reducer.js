@@ -2,7 +2,7 @@ import {
 	requestActionTypes,
 	successActionTypes,
 	failedActionTypes
-} from '../actions/actionTypes/index'
+} from '../actions/actionTypes'
 
 const initialState = {
 	request: null,

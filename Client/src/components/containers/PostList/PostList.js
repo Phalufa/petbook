@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import Post from '../../Post/Post'
 import './PostList.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { usePostPagination } from '../../../hooks/index'
+import { usePostPagination } from '../../../hooks'
 import { postActions } from '../../../store/actions'
 
 const PostList = () => {

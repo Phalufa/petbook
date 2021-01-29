@@ -11,7 +11,7 @@ const Notification = ({ milliseconds }) => {
 	const showMsg = () => {
 		return msg ? (
 			<>
-				<div className="notification">
+				<div className="notification box-shadow-3d">
 					{errorMsg && <span className="error">{errorMsg}</span>}
 					{successMsg && <span className="success">{successMsg}</span>}
 					<button onClick={() => clearMsg(0)} className="Button closeBtn">

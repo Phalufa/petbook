@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import './Registration.css'
-import * as Utils from '../../utils/validations'
+import * as Utils from '../../utils'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions } from '../../store/actions'
 import { Redirect } from 'react-router-dom'

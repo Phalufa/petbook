@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './Profile.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { userActions } from '../../store/actions/index'
+import { userActions } from '../../store/actions'
 import { Redirect } from 'react-router-dom'
 import EditUserDetails from './EditUserDetails'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { userService } from '../../services'
 
-const Profile = ({ uploadUserImage }) => {
+const Profile = () => {
 	const isLoggedIn = useSelector(state => state.auth.loggedIn)
 	const username = useSelector(state => state.auth.user)
 	const user = useSelector(state => state.user)
@@ -91,7 +91,7 @@ const Profile = ({ uploadUserImage }) => {
 
 					<form className="image-upload">
 						<label htmlFor="image-upload" className="Button">
-							upload profile image
+							choose profile image
 						</label>
 						<input
 							ref={refEl}
@@ -109,7 +109,7 @@ const Profile = ({ uploadUserImage }) => {
 							}`}
 							onClick={event => uploadAvatar(event)}
 						>
-							<FontAwesomeIcon icon={faUpload} /> save
+							<FontAwesomeIcon icon={faUpload} /> upload
 						</button>
 					</form>
 				</section>

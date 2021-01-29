@@ -1,4 +1,4 @@
-import { authActionTypes } from '../actions/actionTypes/index'
+import { authActionTypes } from '../actions/actionTypes'
 
 const initialState = {
 	signup: {},

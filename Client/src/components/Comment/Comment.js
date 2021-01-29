@@ -1,14 +1,14 @@
 import './Comment.css'
 import React, { useState } from 'react'
-import { createdTimeShort } from '../../utils/time'
+import { createdTimeShort } from '../../utils'
 import ConfirmBox from '../Post/MyPosts/ConfirmBox'
-import { authentication as auth } from '../../services/helpers/authentication'
-import { useClickOutside } from '../../hooks/clickOutside'
+import { authentication as auth } from '../../services/helpers'
+import { useClickOutside } from '../../hooks'
 import EditComment from './EditComment/EditComment'
 import { userService } from '../../services'
 import UserInfo from '../UserInfo/UserInfo'
 
-const Comment = ({ comment, onCommentDeleted }) => {
+const Comment = ({ comment, decrementCounter }) => {
 	const [
 		showConfirmationBoxOnDelete,
 		setShowConfirmationBoxOnDelete
@@ -112,7 +112,7 @@ const Comment = ({ comment, onCommentDeleted }) => {
 					commentId={id}
 					cancelDelete={handleCancelDelete}
 					postIdOfComment={postId}
-					onCommentDeleted={onCommentDeleted}
+					decrementCounter={decrementCounter}
 				/>
 			)}
 		</div>

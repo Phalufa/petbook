@@ -1,10 +1,10 @@
 import './EditPost.css'
 import React from 'react'
 import { useFormik } from 'formik'
-import { checkRequired } from '../../../utils/validations'
+import { checkRequired } from '../../../utils'
 import { useDispatch } from 'react-redux'
 import { postActions } from '../../../store/actions'
-import { useNoScroll } from '../../../hooks/index'
+import { useNoScroll } from '../../../hooks'
 
 const EditPost = ({ post, hideEditBox }) => {
 	const dispatch = useDispatch()

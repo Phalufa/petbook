@@ -1,13 +1,14 @@
 import React, { useState, useRef } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { commentActions } from '../../../store/actions'
 import './CreateComment.css'
-import { authentication as auth } from '../../../services/helpers/authentication'
+import { authentication as auth } from '../../../services/helpers'
 
-const CreateComment = ({ addComment, postId, onCommentAdded }) => {
+const CreateComment = ({ postId, incrementCounter }) => {
 	const [showCommentButton, setShowCommentButton] = useState(false)
 	const [cancel, setCancel] = useState(false)
 	const commentInput = useRef(null)
+	const dispatch = useDispatch()
 
 	const onSubmitComment = e => {
 		e.preventDefault()
@@ -21,8 +22,8 @@ const CreateComment = ({ addComment, postId, onCommentAdded }) => {
 				content,
 				timeCreated: null
 			}
-			addComment(commentRequest)
-			onCommentAdded()
+			dispatch(commentActions.createComment(commentRequest))
+			incrementCounter()
 			cancelComment(e)
 		}
 	}
@@ -54,7 +55,7 @@ const CreateComment = ({ addComment, postId, onCommentAdded }) => {
 					onBlur={e => handleHideButton(e)}
 					ref={commentInput}
 				></textarea>
-				{showCommentButton ? (
+				{showCommentButton && (
 					<div className="options">
 						<button onClick={e => cancelComment(e)} className="Button">
 							cancel
@@ -67,18 +68,10 @@ const CreateComment = ({ addComment, postId, onCommentAdded }) => {
 							comment
 						</button>
 					</div>
-				) : null}
+				)}
 			</form>
 		</section>
 	)
 }
 
-const mapStateToProps = state => {
-	return {}
-}
-
-const mapDispatchToProps = {
-	addComment: commentActions.createComment
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateComment)
+export default CreateComment

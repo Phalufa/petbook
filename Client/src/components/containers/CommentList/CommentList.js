@@ -9,8 +9,8 @@ const CommentList = ({
 	postId,
 	toggleComments,
 	numOfComments,
-	commentAdded,
-	onCommentDeleted
+	incrementCounter,
+	decrementCounter
 }) => {
 	const comments = useSelector(state => state.comments.postsComments)
 	const dispatch = useDispatch()
@@ -30,20 +30,20 @@ const CommentList = ({
 		visibleComments = allComments
 			.filter((c, i) => i < 2)
 			.map(c => (
-				<Comment key={c.id} comment={c} onCommentDeleted={onCommentDeleted} />
+				<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
 			))
 		//  remaining comments by order (recently)
 		hiddenComments = allComments
 			.filter((c, i) => i >= 2)
 			.map(c => (
-				<Comment key={c.id} comment={c} onCommentDeleted={onCommentDeleted} />
+				<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
 			))
 	}
 
 	return (
 		<section className="CommentList">
 			{comments[postId] && <hr className="divider rotate" />}
-			<CreateComment postId={postId} onCommentAdded={commentAdded} />
+			<CreateComment postId={postId} incrementCounter={incrementCounter} />
 			{toggleComments && visibleComments}
 			{toggleComments && !loadMoreComments && numOfComments > 2 && (
 				<div

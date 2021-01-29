@@ -1,6 +1,6 @@
-import { authActionTypes } from './actionTypes/index'
-import { authService } from '../../services/index'
-import { request, success, fail } from '../helpers/index'
+import { authActionTypes } from './actionTypes'
+import { authService } from '../../services'
+import { request, success, fail } from '../helpers'
 
 const login = (username, password) => {
 	return dispatch => {

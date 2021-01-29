@@ -1,9 +1,9 @@
 import React from 'react'
 import './Login.css'
 import { useFormik } from 'formik'
-import { checkRequired } from '../../utils/validations'
+import { checkRequired } from '../../utils'
 import { useDispatch } from 'react-redux'
-import { authActions } from '../../store/actions/index'
+import { authActions } from '../../store/actions'
 
 const Login = () => {
 	const dispatch = useDispatch()
@@ -26,6 +26,17 @@ const Login = () => {
 		}
 	})
 
+	// Render input field errors
+	const errorSection = fieldName => {
+		return (
+			<section className="error-section">
+				{form.touched[fieldName] && form.errors[fieldName] ? (
+					<span className="FormInputError">{form.errors[fieldName]}</span>
+				) : null}
+			</section>
+		)
+	}
+
 	return (
 		<form onSubmit={form.handleSubmit} className="LoginForm">
 			<div>
@@ -39,11 +50,7 @@ const Login = () => {
 					value={form.values.username}
 				/>
 			</div>
-			<section className="error-section">
-				{form.touched.username && form.errors.username ? (
-					<span className="FormInputError">{form.errors.username}</span>
-				) : null}
-			</section>
+			{errorSection('username')}
 			<div>
 				<label htmlFor="password">Password</label>
 				<input
@@ -55,11 +62,7 @@ const Login = () => {
 					value={form.values.password}
 				/>
 			</div>
-			<section className="error-section">
-				{form.touched.password && form.errors.password ? (
-					<span className="FormInputError">{form.errors.password}</span>
-				) : null}
-			</section>
+			{errorSection('password')}
 			<button type="submit" className="SubmitButton">
 				Login
 			</button>

@@ -1,10 +1,10 @@
-import { request, success, fail } from '../helpers/index'
-import { commentService } from '../../services/index'
+import { request, success, fail } from '../helpers'
+import { commentService } from '../../services'
 import { commentActionTypes } from './actionTypes'
 import {
 	refreshTokenInterceptor,
 	refreshTokenInterceptorIncBody
-} from '../../services/helpers/index'
+} from '../../services/helpers'
 
 const getAComment = (dispatch, commentId) => {
 	commentService.getComment(commentId).then(result => {

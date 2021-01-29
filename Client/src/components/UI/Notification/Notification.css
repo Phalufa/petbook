@@ -29,3 +29,9 @@
 .notification .success {
 	color: var(--success-color);
 }
+
+.box-shadow-3d {
+	box-shadow: 1px 1px 0px var(--main-blue), 2px 2px 0px var(--main-blue),
+		3px 3px 0px var(--main-blue), 4px 4px 0px var(--main-blue),
+		5px 5px 0px var(--main-blue), 6px 6px 0px var(--main-blue);
+}

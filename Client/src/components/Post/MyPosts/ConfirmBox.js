@@ -1,7 +1,7 @@
 import './MyPosts.css'
 import { useDispatch } from 'react-redux'
 import { commentActions, postActions } from '../../../store/actions'
-import { useNoScroll } from '../../../hooks/index'
+import { useNoScroll } from '../../../hooks'
 
 /**
  * Confirm Box will pop out each time the user
@@ -12,7 +12,7 @@ const ConfirmBox = ({
 	cancelDelete,
 	commentId,
 	postIdOfComment,
-	onCommentDeleted
+	decrementCounter
 }) => {
 	const dispatch = useDispatch()
 	// diable window scroll when component is rendered
@@ -25,7 +25,7 @@ const ConfirmBox = ({
 
 	const confirmDeleteComment = () => {
 		dispatch(commentActions.deleteComment(commentId, postIdOfComment))
-		onCommentDeleted()
+		decrementCounter()
 		cancelDelete()
 	}
 

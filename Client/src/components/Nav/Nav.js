@@ -1,37 +1,26 @@
 import React, { useState } from 'react'
 import './Nav.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { authActions } from '../../store/actions/index'
+import { authActions } from '../../store/actions'
 import { Redirect, Link } from 'react-router-dom'
-import { useClickOutside } from '../../hooks/index'
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons'
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import UserMenu from './UserMenu/UserMenu'
 
 const Nav = ({ toggleCreatePostComponent }) => {
 	const loggedIn = useSelector(state => state.auth.loggedIn)
 	const dispatch = useDispatch()
 
-	const [isMenuOpen, setIsMenuOpen] = useState(false)
+	const [openMenu, setOpenMenu] = useState(false)
 	const [redirect, setRedirect] = useState(false)
-	const menuRef = useClickOutside(() => setIsMenuOpen(false))
 
 	const logoutAndRedirect = () => {
-		setIsMenuOpen(false)
+		setOpenMenu(false)
 		setRedirect(true)
 		dispatch(authActions.logout())
 	}
 
 	const toggleMenu = () => {
-		if (!isMenuOpen) setIsMenuOpen(true)
-		else setIsMenuOpen(false)
-	}
-
-	// toggle classes if menu is open/closed
-	const getButtonClass = () => {
-		return isMenuOpen ? 'ButtonActive' : 'Button'
+		if (!openMenu) setOpenMenu(true)
+		else setOpenMenu(false)
 	}
 
 	const loginBtn = (
@@ -46,14 +35,14 @@ const Nav = ({ toggleCreatePostComponent }) => {
 		</Link>
 	)
 
-	const hideMenuAndCreatePostComponent = () => {
-		setIsMenuOpen(false)
+	const hideMenuWhenClicked = () => {
+		setOpenMenu(false)
 		toggleCreatePostComponent(false)
 	}
 
 	const createPostComponent = e => {
 		e.stopPropagation()
-		setIsMenuOpen(false) // hide user menu
+		setOpenMenu(false) // hide user menu
 		toggleCreatePostComponent(true) // show CreatePost component
 	}
 
@@ -79,49 +68,15 @@ const Nav = ({ toggleCreatePostComponent }) => {
 				{/* posts button */}
 				{loggedIn && lobbyBtn}
 
-				{/* menu button */}
-				<div ref={menuRef}>
-					{loggedIn && (
-						<button onClick={() => toggleMenu()} className={getButtonClass()}>
-							Menu
-						</button>
-					)}
-					{/* menu items */}
-					{isMenuOpen && (
-						<div className="UserMenu">
-							<ul onClick={hideMenuAndCreatePostComponent}>
-								<Link to="/user/profile">
-									<li>
-										<span>
-											<FontAwesomeIcon icon={faUserAlt} />
-										</span>
-										View Profile
-									</li>
-								</Link>
-								<Link to="/user/posts">
-									<li>
-										<span>
-											<FontAwesomeIcon icon={faBookOpen} />
-										</span>
-										My Posts
-									</li>
-								</Link>
-								<li onClick={e => createPostComponent(e)}>
-									<span>
-										<FontAwesomeIcon icon={faCommentAlt} />
-									</span>
-									Type Something
-								</li>
-								<li onClick={logoutAndRedirect}>
-									<span>
-										<FontAwesomeIcon icon={faSignOutAlt} />
-									</span>
-									Logout
-								</li>
-							</ul>
-						</div>
-					)}
-				</div>
+				<UserMenu
+					loggedIn={loggedIn}
+					openMenu={openMenu}
+					setOpenMenu={setOpenMenu}
+					toggleMenu={toggleMenu}
+					hideMenuWhenClicked={hideMenuWhenClicked}
+					createPostComponent={createPostComponent}
+					logoutAndRedirect={logoutAndRedirect}
+				/>
 
 				{/* redirect to login page after logout */}
 				{redirect && <Redirect to="/login" />}
