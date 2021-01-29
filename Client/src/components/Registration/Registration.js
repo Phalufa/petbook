@@ -60,135 +60,125 @@ const Registration = () => {
 		}
 	})
 
-	return (
-		<>
-			{signed ? (
-				<Redirect to="verifyaccount" />
-			) : (
-				<form onSubmit={form.handleSubmit} className="SignupForm">
-					<div>
-						<label htmlFor="firstName">First Name</label>
-						<input
-							id="firstName"
-							name="firstName"
-							type="text"
-							placeholder="e.g. Juan"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.firstName}
-						/>
-					</div>
-					{form.touched.firstName && form.errors.firstName ? (
-						<span className="FormInputError">{form.errors.firstName}</span>
-					) : null}
-					<div>
-						<label htmlFor="lastName">Last Name</label>
-						<input
-							id="lastName"
-							name="lastName"
-							type="text"
-							placeholder="e.g. Riquelme"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.lastName}
-						/>
-					</div>
-					{form.touched.lastName && form.errors.lastName ? (
-						<span className="FormInputError">{form.errors.lastName}</span>
-					) : null}
-					<div>
-						<label htmlFor="username">Username</label>
-						<input
-							id="username"
-							name="username"
-							type="text"
-							placeholder="e.g. Meow3000"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.username}
-						/>
-					</div>
-					{form.touched.username && form.errors.username ? (
-						<span className="FormInputError">{form.errors.username}</span>
-					) : null}
-					<div>
-						<label htmlFor="email">Email</label>
-						<input
-							id="email"
-							name="email"
-							type="text"
-							placeholder="e.g. roman@gmail.com"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.email}
-						/>
-					</div>
-					{form.touched.email && form.errors.email ? (
-						<span className="FormInputError">{form.errors.email}</span>
-					) : null}
-					<div>
-						<label htmlFor="password">Password</label>
-						<input
-							id="password"
-							name="password"
-							type="password"
-							placeholder="* 6 characters long +"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.password}
-						/>
-					</div>
-					{form.touched.password && form.errors.password ? (
-						<span className="FormInputError">{form.errors.password}</span>
-					) : null}
-					<fieldset htmlFor="dayOfBirth">
-						<legend>Birth Date</legend>
-						<div className="SignupFormDateFields">
-							<select
-								id="dayOfBirth"
-								name="dateOfBirth.dayOfBirth"
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-							>
-								<option hidden value={''}>
-									Day
-								</option>
-								{Utils.dayOptions()}
-							</select>
-							<select
-								id="monthOfBirth"
-								name="dateOfBirth.monthOfBirth"
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-							>
-								<option hidden value={''}>
-									Month
-								</option>
-								{Utils.monthNamesOptions()}
-							</select>
-							<select
-								id="yearOfBirth"
-								name="dateOfBirth.yearOfBirth"
-								onChange={form.handleChange}
-								onBlur={form.handleBlur}
-							>
-								<option hidden value={''}>
-									Year
-								</option>
-								{Utils.yearOptions()}
-							</select>
-						</div>
-					</fieldset>
-					{form.touched.dateOfBirth && form.errors.dateOfBirth ? (
-						<span className="FormInputError">{form.errors.dateOfBirth}</span>
-					) : null}
-					<button type="submit" className="SubmitButton">
-						Submit
-					</button>
-				</form>
-			)}
-		</>
+	const errorSection = fieldName => {
+		return form.touched[fieldName] && form.errors[fieldName] ? (
+			<span className="FormInputError">{form.errors[fieldName]}</span>
+		) : null
+	}
+
+	const signupForm = (
+		<form onSubmit={form.handleSubmit} className="SignupForm">
+			<div>
+				<label htmlFor="firstName">First Name</label>
+				<input
+					id="firstName"
+					name="firstName"
+					type="text"
+					placeholder="e.g. Juan"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.firstName}
+				/>
+			</div>
+			{errorSection('firstName')}
+			<div>
+				<label htmlFor="lastName">Last Name</label>
+				<input
+					id="lastName"
+					name="lastName"
+					type="text"
+					placeholder="e.g. Riquelme"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.lastName}
+				/>
+			</div>
+			{errorSection('lastName')}
+			<div>
+				<label htmlFor="username">Username</label>
+				<input
+					id="username"
+					name="username"
+					type="text"
+					placeholder="e.g. Meow3000"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.username}
+				/>
+			</div>
+			{errorSection('username')}
+			<div>
+				<label htmlFor="email">Email</label>
+				<input
+					id="email"
+					name="email"
+					type="text"
+					placeholder="e.g. roman@gmail.com"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.email}
+				/>
+			</div>
+			{errorSection('email')}
+			<div>
+				<label htmlFor="password">Password</label>
+				<input
+					id="password"
+					name="password"
+					type="password"
+					placeholder="* 6 characters long +"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.password}
+				/>
+			</div>
+			{errorSection('password')}
+			<fieldset htmlFor="dayOfBirth">
+				<legend>Birth Date</legend>
+				<div className="SignupFormDateFields">
+					<select
+						id="dayOfBirth"
+						name="dateOfBirth.dayOfBirth"
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+					>
+						<option hidden value={''}>
+							Day
+						</option>
+						{Utils.dayOptions()}
+					</select>
+					<select
+						id="monthOfBirth"
+						name="dateOfBirth.monthOfBirth"
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+					>
+						<option hidden value={''}>
+							Month
+						</option>
+						{Utils.monthNamesOptions()}
+					</select>
+					<select
+						id="yearOfBirth"
+						name="dateOfBirth.yearOfBirth"
+						onChange={form.handleChange}
+						onBlur={form.handleBlur}
+					>
+						<option hidden value={''}>
+							Year
+						</option>
+						{Utils.yearOptions()}
+					</select>
+				</div>
+			</fieldset>
+			{errorSection('dateOfBirth')}
+			<button type="submit" className="SubmitButton">
+				Submit
+			</button>
+		</form>
 	)
+
+	return <>{signed ? <Redirect to="verifyaccount" /> : signupForm}</>
 }
 
 export default Registration

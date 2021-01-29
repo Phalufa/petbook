@@ -5,19 +5,15 @@ import { postActions } from '../../../store/actions'
 import { authentication as auth } from '../../../services/helpers'
 import { createdTimeLocal } from '../../../utils'
 import EditPost from '../EditPost/EditPost'
-import ConfirmBox from './ConfirmBox'
+import ConfirmBox from '../../ConfirmBox/ConfirmBox'
 
 const MyPosts = () => {
-	const dispatch = useDispatch()
-	// user posts state
 	const posts = useSelector(state => state.posts.posts.user)
+	const dispatch = useDispatch()
 
 	const [editPost, setEditPost] = useState(null)
 	const [postIdToDelete, setPostIdToDelete] = useState(null)
-	const [
-		showConfirmationBoxOnDelete,
-		setShowConfirmationBoxOnDelete
-	] = useState(false)
+	const [showConfirmBox, setShowConfirmBox] = useState(false)
 	const [showEditBox, setShowEditBox] = useState(false)
 
 	useEffect(() => {
@@ -28,12 +24,12 @@ const MyPosts = () => {
 	// show ConfirmBox
 	const handleDelete = id => {
 		setPostIdToDelete(id)
-		setShowConfirmationBoxOnDelete(true)
+		setShowConfirmBox(true)
 	}
 
 	// hide ConfirmBox
 	const handleCancelDelete = () => {
-		setShowConfirmationBoxOnDelete(false)
+		setShowConfirmBox(false)
 	}
 
 	// show EditPost
@@ -99,7 +95,7 @@ const MyPosts = () => {
 				</tbody>
 			</table>
 			{showEditBox && <EditPost post={editPost} hideEditBox={hideEditBox} />}
-			{showConfirmationBoxOnDelete && (
+			{showConfirmBox && (
 				<ConfirmBox postId={postIdToDelete} cancelDelete={handleCancelDelete} />
 			)}
 		</section>

@@ -12,8 +12,6 @@ const EditUserDetails = ({
 	email,
 	firstName,
 	lastName,
-	error,
-	updateProfile,
 	id,
 	closeBox
 }) => {
@@ -55,6 +53,68 @@ const EditUserDetails = ({
 		}
 	})
 
+	const errorSection = fieldName => {
+		return form.touched[fieldName] && form.errors[fieldName] ? (
+			<span className="FormInputError">{form.errors[fieldName]}</span>
+		) : null
+	}
+
+	const editUserDetailsForm = (
+		<form onSubmit={form.handleSubmit} className="SignupForm">
+			<div>
+				<label htmlFor="email">Email</label>
+				<input
+					id="email"
+					name="email"
+					type="text"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.email}
+				/>
+			</div>
+			{errorSection('email')}
+			<div>
+				<label htmlFor="firstName">First Name</label>
+				<input
+					id="firstName"
+					name="firstName"
+					type="text"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.firstName}
+				/>
+			</div>
+			{errorSection('firstName')}
+			<div>
+				<label htmlFor="lastName">Last Name</label>
+				<input
+					id="lastName"
+					name="lastName"
+					type="text"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.lastName}
+				/>
+			</div>
+			{errorSection('lastName')}
+			<div>
+				<label htmlFor="password">Password</label>
+				<input
+					id="password"
+					name="password"
+					type="password"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.password}
+				/>
+			</div>
+			{errorSection('password')}
+			<button type="submit" className="SubmitButton">
+				Save
+			</button>
+		</form>
+	)
+
 	return (
 		<div className="Box-container">
 			<div className="EditDetailsBox">
@@ -64,68 +124,7 @@ const EditUserDetails = ({
 						&#10006;
 					</button>
 				</div>
-				<form onSubmit={form.handleSubmit} className="SignupForm">
-					<div>
-						<label htmlFor="email">Email</label>
-						<input
-							id="email"
-							name="email"
-							type="text"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.email}
-						/>
-					</div>
-					{form.touched.email && form.errors.email ? (
-						<span className="FormInputError">{form.errors.email}</span>
-					) : null}
-					<div>
-						<label htmlFor="firstName">First Name</label>
-						<input
-							id="firstName"
-							name="firstName"
-							type="text"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.firstName}
-						/>
-					</div>
-					{form.touched.firstName && form.errors.firstName ? (
-						<span className="FormInputError">{form.errors.firstName}</span>
-					) : null}
-					<div>
-						<label htmlFor="lastName">Last Name</label>
-						<input
-							id="lastName"
-							name="lastName"
-							type="text"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.lastName}
-						/>
-					</div>
-					{form.touched.lastName && form.errors.lastName ? (
-						<span className="FormInputError">{form.errors.lastName}</span>
-					) : null}
-					<div>
-						<label htmlFor="password">Password</label>
-						<input
-							id="password"
-							name="password"
-							type="password"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.password}
-						/>
-					</div>
-					{form.touched.password && form.errors.password ? (
-						<span className="FormInputError">{form.errors.password}</span>
-					) : null}
-					{error ? <span className="FormInputError">{error}</span> : null}
-					<button type="submit" className="SubmitButton">
-						Save
-					</button>
-				</form>
+				{editUserDetailsForm}
 			</div>
 		</div>
 	)

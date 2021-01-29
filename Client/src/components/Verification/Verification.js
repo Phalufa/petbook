@@ -28,36 +28,30 @@ const Verification = () => {
 		}
 	})
 
+	const verificationForm = (
+		<form onSubmit={form.handleSubmit} className="VerifyAccountForm">
+			<div>
+				<label htmlFor="verificationToken">Account Verification Token</label>
+				<input
+					id="verificationToken"
+					name="verificationToken"
+					type="text"
+					onChange={form.handleChange}
+					onBlur={form.handleBlur}
+					value={form.values.verificationToken}
+				/>
+			</div>
+			{form.touched.verificationToken && form.errors.verificationToken ? (
+				<span className="FormInputError">{form.errors.verificationToken}</span>
+			) : null}
+			<button type="submit" className="SubmitButton">
+				Submit
+			</button>
+		</form>
+	)
+
 	return (
-		<>
-			{isVerified || isLoggedIn ? (
-				<Redirect to="home" />
-			) : (
-				<form onSubmit={form.handleSubmit} className="VerifyAccountForm">
-					<div>
-						<label htmlFor="verificationToken">
-							Account Verification Token
-						</label>
-						<input
-							id="verificationToken"
-							name="verificationToken"
-							type="text"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.verificationToken}
-						/>
-					</div>
-					{form.touched.verificationToken && form.errors.verificationToken ? (
-						<span className="FormInputError">
-							{form.errors.verificationToken}
-						</span>
-					) : null}
-					<button type="submit" className="SubmitButton">
-						Submit
-					</button>
-				</form>
-			)}
-		</>
+		<>{isVerified || isLoggedIn ? <Redirect to="home" /> : verificationForm}</>
 	)
 }
 

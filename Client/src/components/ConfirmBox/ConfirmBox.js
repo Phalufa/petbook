@@ -1,7 +1,7 @@
-import './MyPosts.css'
+import './ConfirmBox.css'
 import { useDispatch } from 'react-redux'
-import { commentActions, postActions } from '../../../store/actions'
-import { useNoScroll } from '../../../hooks'
+import { commentActions, postActions } from '../../store/actions'
+import { useNoScroll } from '../../hooks'
 
 /**
  * Confirm Box will pop out each time the user
@@ -34,27 +34,35 @@ const ConfirmBox = ({
 		if (commentId) confirmDeleteComment(commentId)
 	}
 
+	const boxHeader = (
+		<div className="confirm-box-header">
+			<button className="Button closeBtn" onClick={cancelDelete}>
+				&#10006;
+			</button>
+			<h1>Are You Sure?</h1>
+		</div>
+	)
+
+	const boxOptions = (
+		<div className="options">
+			<button onClick={cancelDelete} className="SubmitButton">
+				Cancel
+			</button>
+			<span className="space"></span>
+			<button
+				onClick={() => handleDelete()}
+				className="SubmitButton delete-btn"
+			>
+				Delete
+			</button>
+		</div>
+	)
+
 	return (
 		<section className="Box-container">
 			<div className="ConfirmBox">
-				<div className="confirm-box-header">
-					<button className="Button closeBtn" onClick={cancelDelete}>
-						&#10006;
-					</button>
-					<h1>Are You Sure?</h1>
-				</div>
-				<div className="options">
-					<button onClick={cancelDelete} className="SubmitButton">
-						Cancel
-					</button>
-					<span className="space"></span>
-					<button
-						onClick={() => handleDelete()}
-						className="SubmitButton delete-btn"
-					>
-						Delete
-					</button>
-				</div>
+				{boxHeader}
+				{boxOptions}
 			</div>
 		</section>
 	)

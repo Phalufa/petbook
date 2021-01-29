@@ -1,7 +1,8 @@
 import {
 	requestActionTypes,
 	successActionTypes,
-	failedActionTypes
+	failedActionTypes,
+	notificationActionTypes
 } from '../actions/actionTypes'
 
 const initialState = {
@@ -32,9 +33,9 @@ export const requestReducer = (state = initialState, action) => {
 	}
 
 	switch (action.type) {
-		case 'CLEAR_ERROR':
+		case notificationActionTypes.CLEAR_ERROR:
 			return { ...state, error: null }
-		case 'CLEAR_MESSAGE':
+		case notificationActionTypes.CLEAR_MESSAGE:
 			return { ...state, message: null }
 		default:
 			return state

@@ -1,6 +1,7 @@
 import './Notification.css'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { notificationActionTypes } from '../../../store/actions/actionTypes'
 
 const Notification = ({ milliseconds }) => {
 	const errorMsg = useSelector(state => state.requests.error)
@@ -23,10 +24,10 @@ const Notification = ({ milliseconds }) => {
 		) : null
 	}
 
-	const clearMsg = (millis = milliseconds, msg) => {
+	const clearMsg = (millis = milliseconds) => {
 		const clear = () => {
-			if (errorMsg) dispatch({ type: 'CLEAR_ERROR' })
-			if (successMsg) dispatch({ type: 'CLEAR_MESSAGE' })
+			if (errorMsg) dispatch({ type: notificationActionTypes.CLEAR_ERROR })
+			if (successMsg) dispatch({ type: notificationActionTypes.CLEAR_MESSAGE })
 			clearTimeout(delay)
 		}
 		const delay = setTimeout(clear, millis)

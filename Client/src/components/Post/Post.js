@@ -12,7 +12,7 @@ const Post = ({ user, userImage, title, date, content, numOfComments, id }) => {
 	const [commentCount, setCommentCount] = useState(numOfComments)
 	const authorInfoRef = useClickOutside(() => setToggleAuthor(false))
 
-	// show/hide comments
+	// show/hide all comments of a post
 	const toggleComments = () => {
 		setShowComments(prevState => !prevState)
 	}
@@ -49,6 +49,8 @@ const Post = ({ user, userImage, title, date, content, numOfComments, id }) => {
 		</div>
 	)
 
+	const postContent = <div className="PostContent">{content}</div>
+
 	const postFooter = (
 		<div className="post-footer">
 			<div className="PostnumOfComments" onClick={toggleComments}>
@@ -57,20 +59,24 @@ const Post = ({ user, userImage, title, date, content, numOfComments, id }) => {
 		</div>
 	)
 
+	const commentList = (
+		<CommentList
+			postId={id}
+			toggleComments={showComments}
+			numOfComments={commentCount}
+			incrementCounter={incrementCounter}
+			decrementCounter={decrementCounter}
+		/>
+	)
+
 	return (
 		<section className="post-container">
 			<article className="post">
 				{postHeader}
 				<hr className="divider" />
-				<div className="PostContent">{content}</div>
+				{postContent}
 				{postFooter}
-				<CommentList
-					postId={id}
-					toggleComments={showComments}
-					numOfComments={commentCount}
-					incrementCounter={incrementCounter}
-					decrementCounter={decrementCounter}
-				/>
+				{commentList}
 			</article>
 		</section>
 	)

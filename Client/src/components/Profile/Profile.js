@@ -55,6 +55,50 @@ const Profile = () => {
 		dispatch(userActions.uploadUserImage(img, id))
 	}
 
+	const userAvatar = image && (
+		<div className="center">
+			<img
+				className="avatar"
+				src={userService.downloadUserImage(id)}
+				alt={username}
+			/>
+		</div>
+	)
+
+	const userDetails = (
+		<div className="Details">
+			<span>{`${firstName} ${lastName}`}</span>
+			<span>{email}</span>
+			<hr className="divider" />
+			<Link to="/user/posts">Your posts</Link>
+			<Link to="/user/comments">Your comments</Link>
+		</div>
+	)
+
+	const imageUploadForm = (
+		<form className="image-upload">
+			<label htmlFor="image-upload" className="Button">
+				choose profile image
+			</label>
+			<input
+				ref={refEl}
+				id="image-upload"
+				onChange={handleChange}
+				type="file"
+				accept="image/*"
+				className="custom-file-input"
+			/>
+			<button
+				type="submit"
+				disabled={!img}
+				className={`Button enlarge-icon FilledButton ${!img && 'disabled'}`}
+				onClick={event => uploadAvatar(event)}
+			>
+				<FontAwesomeIcon icon={faUpload} /> upload
+			</button>
+		</form>
+	)
+
 	return (
 		<>
 			{!isLoggedIn ? (
@@ -62,23 +106,8 @@ const Profile = () => {
 			) : (
 				<section className="Profile">
 					<h1>{username}</h1>
-					{image && (
-						<div className="center">
-							<img
-								className="avatar"
-								src={userService.downloadUserImage(id)}
-								alt={username}
-							/>
-						</div>
-					)}
-					<div className="Details">
-						<span>{`${firstName} ${lastName}`}</span>
-						<span>{email}</span>
-						<hr className="divider" />
-						<Link to="/user/posts">Your posts</Link>
-						<Link to="/user/comments">Your comments</Link>
-					</div>
-
+					{userAvatar}
+					{userDetails}
 					<div className="edit-details">
 						<button
 							className="Button"
@@ -89,29 +118,7 @@ const Profile = () => {
 						{openEditComponent()}
 					</div>
 
-					<form className="image-upload">
-						<label htmlFor="image-upload" className="Button">
-							choose profile image
-						</label>
-						<input
-							ref={refEl}
-							id="image-upload"
-							onChange={handleChange}
-							type="file"
-							accept="image/*"
-							className="custom-file-input"
-						/>
-						<button
-							type="submit"
-							disabled={!img}
-							className={`Button enlarge-icon FilledButton ${
-								!img && 'disabled'
-							}`}
-							onClick={event => uploadAvatar(event)}
-						>
-							<FontAwesomeIcon icon={faUpload} /> upload
-						</button>
-					</form>
+					{imageUploadForm}
 				</section>
 			)}
 		</>

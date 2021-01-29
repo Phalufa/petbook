@@ -37,6 +37,39 @@ const CreatePost = ({ toggleCreatePostComponent }) => {
 		}
 	})
 
+	const errorSection = fieldName => {
+		return form.touched[fieldName] && form.errors[fieldName] ? (
+			<div className="field-error">{form.errors[fieldName]}</div>
+		) : null
+	}
+
+	const createPostForm = (
+		<form onSubmit={form.handleSubmit}>
+			<input
+				id="postTitle"
+				name="postTitle"
+				type="text"
+				onChange={form.handleChange}
+				onBlur={form.handleBlur}
+				value={form.values.postTitle}
+				placeholder="Title"
+			/>
+			{errorSection('postTitle')}
+			<textarea
+				id="postContent"
+				name="postContent"
+				onChange={form.handleChange}
+				onBlur={form.handleBlur}
+				value={form.values.postContent}
+				placeholder="Your text"
+			/>
+			{errorSection('postContent')}
+			<button type="submit" className="SubmitButton">
+				Post
+			</button>
+		</form>
+	)
+
 	return (
 		<section className="Box-container">
 			<div className="Box" onClick={null}>
@@ -51,34 +84,7 @@ const CreatePost = ({ toggleCreatePostComponent }) => {
 							&#10006;
 						</button>
 					</div>
-					<form onSubmit={form.handleSubmit}>
-						<input
-							id="postTitle"
-							name="postTitle"
-							type="text"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.postTitle}
-							placeholder="Title"
-						/>
-						{form.touched.postTitle && form.errors.postTitle ? (
-							<div className="field-error">{form.errors.postTitle}</div>
-						) : null}
-						<textarea
-							id="postContent"
-							name="postContent"
-							onChange={form.handleChange}
-							onBlur={form.handleBlur}
-							value={form.values.postContent}
-							placeholder="Your text"
-						/>
-						{form.touched.postContent && form.errors.postContent ? (
-							<div className="field-error">{form.errors.postContent}</div>
-						) : null}
-						<button type="submit" className="SubmitButton">
-							Post
-						</button>
-					</form>
+					{createPostForm}
 				</article>
 			</div>
 		</section>

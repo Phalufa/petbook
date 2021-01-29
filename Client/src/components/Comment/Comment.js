@@ -1,7 +1,7 @@
 import './Comment.css'
 import React, { useState } from 'react'
 import { createdTimeShort } from '../../utils'
-import ConfirmBox from '../Post/MyPosts/ConfirmBox'
+import ConfirmBox from '../ConfirmBox/ConfirmBox'
 import { authentication as auth } from '../../services/helpers'
 import { useClickOutside } from '../../hooks'
 import EditComment from './EditComment/EditComment'
