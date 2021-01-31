@@ -9,6 +9,7 @@ import com.miko.petbook.dtos.CommentDto;
 import com.miko.petbook.exceptions.CommentNotFoundException;
 import com.miko.petbook.exceptions.NotAllowedException;
 import com.miko.petbook.exceptions.PostNotFoundException;
+import com.miko.petbook.models.CommentPage;
 import com.miko.petbook.services.CommentService;
 
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CommentController {
 
   private final CommentService commentService;
+
+  @PostMapping("/{postId}/page")
+  public ResponseEntity<?> getCommentsByPage(@PathVariable Long postId, @RequestBody CommentPage page)
+      throws PostNotFoundException {
+    return ResponseEntity.ok(commentService.getCommentsByPage(postId, page));
+  }
 
   @PostMapping
   public ResponseEntity<?> createComment(@RequestBody CommentDto commentDto) throws PostNotFoundException {

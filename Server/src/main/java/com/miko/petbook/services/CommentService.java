@@ -9,11 +9,16 @@ import com.miko.petbook.exceptions.NotAllowedException;
 import com.miko.petbook.exceptions.PostNotFoundException;
 import com.miko.petbook.mappers.CommentMapper;
 import com.miko.petbook.models.Comment;
+import com.miko.petbook.models.CommentPage;
 import com.miko.petbook.models.Post;
 import com.miko.petbook.models.User;
 import com.miko.petbook.repositories.CommentRepository;
 import com.miko.petbook.repositories.PostRepository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,5 +87,13 @@ public class CommentService {
       httpStatus = 200;
     }
     return httpStatus;
+  }
+
+  public Page<CommentDto> getCommentsByPage(Long postId, CommentPage page) throws PostNotFoundException {
+    postRepo.findById(postId)
+        .orElseThrow(() -> new PostNotFoundException("Error: cannot retrieve comments - post not found"));
+    Sort sort = Sort.by(page.getSortDirection(), page.getSortBy());
+    Pageable pageable = PageRequest.of(page.getPageNumber(), page.getPageSize(), sort);
+    return commentRepo.findAllByPostId(postId, pageable).map(comment -> commentMapper.mapToCommentDto(comment));
   }
 }

@@ -9,18 +9,25 @@ import {
 const postPagination = (dispatch, postPage) => {
 	postService.getPostPage(postPage).then(result => {
 		if (result) {
-			dispatch(
-				success(postActionTypes.GET_POST_PAGE_SUCCESS, {
-					posts: { all: result.content, user: [] },
-					lastPage: result.last,
-					pageNumber: result.pageable.pageNumber
-				})
-			)
+			Promise.all([
+				dispatch(
+					success(postActionTypes.GET_POST_PAGE_SUCCESS, {
+						posts: { all: result.content, user: [] },
+						lastPage: result.last,
+						pageNumber: result.pageable.pageNumber
+					})
+				),
+				dispatch(addPostToCommentReducer(result.content))
+			])
 		} else {
 			const err = 'Unauthorized'
 			dispatch(fail(postActionTypes.GET_POST_PAGE_FAILED, { error: err }))
 		}
 	})
+}
+
+const addPostToCommentReducer = posts => {
+	return { type: postActionTypes.ADD_POST_ID_TO_COMMENTS, payload: posts }
 }
 
 const getPostPage = postPage =>
@@ -78,11 +85,14 @@ const getPostsByUser = username =>
 const createNewPost = (dispatch, postRequest) => {
 	postService.createPost(postRequest).then(result => {
 		if (result)
-			dispatch(
-				success(postActionTypes.CREATE_POST_SUCCESS, {
-					newPost: result
-				})
-			)
+			Promise.all([
+				dispatch(
+					success(postActionTypes.CREATE_POST_SUCCESS, {
+						newPost: result
+					})
+				),
+				dispatch(addPostToCommentReducer([result]))
+			])
 		else {
 			const err = 'Unauthorized'
 			dispatch(fail(postActionTypes.CREATE_POST_FAILED, { error: err }))

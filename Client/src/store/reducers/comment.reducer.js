@@ -1,4 +1,8 @@
-import { commentActionTypes } from '../actions/actionTypes'
+import {
+	commentActionTypes as act,
+	postActionTypes
+} from '../actions/actionTypes'
+import * as utils from '../helpers'
 
 const initialState = {
 	userComments: [],
@@ -6,64 +10,37 @@ const initialState = {
 }
 
 export const commentReducer = (state = initialState, action) => {
-	let newComments, postId
+	let newComments = { ...state.postsComments }
 	switch (action.type) {
-		case commentActionTypes.CREATE_COMMENT_REQUEST:
-			return { ...state }
-		case commentActionTypes.CREATE_COMMENT_SUCCESS:
-			newComments = { ...state.postsComments }
-			let payload = action.payload.comment
-			postId = action.payload.comment.postId
-			let deepCopy
-			if (newComments[payload.postId]) {
-				// if post has comments
-				deepCopy = newComments[payload.postId].concat(payload)
-				newComments[payload.postId] = deepCopy
-			} else {
-				let newPostCommentsArr = [payload]
-				newComments[postId] = newPostCommentsArr
-			}
+		case act.CREATE_COMMENT_SUCCESS: {
+			let { comment } = action.payload
+			let { postId } = comment
+			newComments = utils.onCreate(postId, comment, newComments)
 			return { ...state, postsComments: newComments }
-		case commentActionTypes.CREATE_COMMENT_FAILED:
-			return { ...state }
-		case commentActionTypes.UPDATE_COMMENT_REQUEST:
-			return { ...state }
-		case commentActionTypes.UPDATE_COMMENT_SUCCESS:
-			postId = action.payload.comment.postId
-			newComments = { ...state.postsComments }
-			newComments[postId] = newComments[postId].map(c => {
-				if (c.id !== action.payload.comment.id) return c
-				else return { ...c, ...action.payload.comment }
-			})
-			return { ...state, postsComments: newComments }
-		case commentActionTypes.UPDATE_COMMENT_FAILED:
-			return { ...state }
-		case commentActionTypes.DELETE_COMMENT_REQUEST:
-			return { ...state }
-		case commentActionTypes.DELETE_COMMENT_SUCCESS:
-			newComments = { ...state.postsComments }
-			postId = action.payload.postId
-			newComments[postId] = newComments[postId].filter(
-				c => c.id !== action.payload.commentId
+		}
+		case act.UPDATE_COMMENT_SUCCESS: {
+			let comment = action.payload.comment
+			let { postId, id } = comment
+			newComments[postId].comments = utils.onUpdate(
+				postId,
+				id,
+				newComments,
+				comment
 			)
 			return { ...state, postsComments: newComments }
-		case commentActionTypes.DELETE_COMMENT_FAILED:
+		}
+		case act.DELETE_COMMENT_SUCCESS: {
+			let { postId, commentId } = action.payload
+			newComments = utils.onDelete(postId, newComments, commentId)
+			return { ...state, postsComments: newComments }
+		}
+		case act.GET_COMMENT_SUCCESS: {
 			return { ...state }
-		case commentActionTypes.GET_COMMENT_REQUEST:
-			return { ...state }
-		case commentActionTypes.GET_COMMENT_SUCCESS:
-			return { ...state }
-		case commentActionTypes.GET_COMMENT_FAILED:
-			return { ...state }
-		case commentActionTypes.GET_USER_COMMENTS_REQUEST:
-			return { ...state }
-		case commentActionTypes.GET_USER_COMMENTS_SUCCESS:
+		}
+		case act.GET_USER_COMMENTS_SUCCESS: {
 			return { ...state, userComments: action.payload.comments }
-		case commentActionTypes.GET_USER_COMMENTS_FAILED:
-			return { ...state }
-		case commentActionTypes.GET_ALL_POST_COMMENTS_REQUEST:
-			return { ...state }
-		case commentActionTypes.GET_ALL_POST_COMMENTS_SUCCESS:
+		}
+		case act.GET_ALL_POST_COMMENTS_SUCCESS: {
 			newComments = { ...state.postsComments }
 			if (action.payload.comments.length > 0) {
 				let payload = action.payload.comments
@@ -71,8 +48,23 @@ export const commentReducer = (state = initialState, action) => {
 				newComments[postId] = payload
 			}
 			return { ...state, postsComments: newComments }
-		case commentActionTypes.GET_ALL_POST_COMMENTS_FAILED:
-			return { ...state }
+		}
+		case act.GET_COMMENT_PAGE_SUCCESS: {
+			let { comments } = action.payload
+			if (comments.length > 0) {
+				let { postId } = comments[0]
+				newComments[postId] = utils.onGetPage(
+					newComments,
+					postId,
+					action.payload
+				)
+			}
+			return { ...state, postsComments: newComments }
+		}
+		case postActionTypes.ADD_POST_ID_TO_COMMENTS: {
+			utils.onCommentsInit(action.payload, newComments)
+			return { ...state, postsComments: newComments }
+		}
 		default:
 			return state
 	}

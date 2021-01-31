@@ -6,6 +6,32 @@ import {
 	refreshTokenInterceptorIncBody
 } from '../../services/helpers'
 
+const commentPagination = (dispatch, postId, commentPage) => {
+	const page = commentPage[0]
+	commentService.getCommentPage(postId, page).then(result => {
+		if (result) {
+			dispatch(
+				success(commentActionTypes.GET_COMMENT_PAGE_SUCCESS, {
+					comments: result.content,
+					lastPage: result.last,
+					pageNumber: result.pageable.pageNumber
+				})
+			)
+		} else {
+			const err = 'Unauthorized'
+			dispatch(fail(commentActionTypes.GET_COMMENT_PAGE_FAILED, { error: err }))
+		}
+	})
+}
+
+const getCommentPage = (postId, commentPage) =>
+	refreshTokenInterceptorIncBody(
+		request(commentActionTypes.GET_COMMENT_PAGE_REQUEST, {}),
+		commentPagination,
+		postId,
+		commentPage
+	)
+
 const getAComment = (dispatch, commentId) => {
 	commentService.getComment(commentId).then(result => {
 		if (result instanceof Object)
@@ -139,6 +165,7 @@ const deleteComment = (commentId, postId) =>
 	)
 
 export const commentActions = {
+	getCommentPage,
 	getComment,
 	updateComment,
 	deleteComment,

@@ -12,48 +12,58 @@ const CommentList = ({
 	incrementCounter,
 	decrementCounter
 }) => {
-	const comments = useSelector(state => state.comments.postsComments)
+	const postsComments = useSelector(state => state.comments.postsComments)
+	const [pageNumber, setPageNumber] = useState(0)
 	const dispatch = useDispatch()
 
-	const [loadMoreComments, setLoadMoreComments] = useState(false)
-
 	useEffect(() => {
-		dispatch(commentActions.getPostComments(postId))
+		dispatch(commentActions.getCommentPage(postId, { pageNumber }))
+		setPageNumber(prevPage => prevPage + 1)
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	let visibleComments = null
-	let hiddenComments = null
-	if (comments[postId]) {
-		let allComments = [...comments[postId]].reverse()
-		//  recent 2 comments of a post
-		visibleComments = allComments
-			.filter((c, i) => i < 2)
-			.map(c => (
-				<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
-			))
-		//  remaining comments by order (recently)
-		hiddenComments = allComments
-			.filter((c, i) => i >= 2)
-			.map(c => (
-				<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
-			))
+	const loadMore = () => {
+		setPageNumber(prevPage => prevPage + 1)
+		dispatch(commentActions.getCommentPage(postId, { pageNumber }))
+	}
+
+	// renders the comments after the post object
+	// that contains the comments has been initialized
+	const renderComments = () => {
+		if (postsComments[postId]) {
+			const { comments } = postsComments[postId]
+			return comments.map(c => {
+				return (
+					<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
+				)
+			})
+		}
+	}
+
+	// checks if it is the last page after the post object
+	// that contains the last page has been initialized
+	const lastPage = () => {
+		if (postsComments[postId]) return postsComments[postId].lastPage
+	}
+
+	const viewMoreBtn = () => {
+		if (!numOfComments) return
+		return (
+			!lastPage() &&
+			toggleComments && (
+				<div className="pointer blue-on-hover margin-top" onClick={loadMore}>
+					View more...
+				</div>
+			)
+		)
 	}
 
 	return (
 		<section className="CommentList">
-			{comments[postId] && <hr className="divider rotate" />}
+			{postsComments[postId] && <hr className="divider rotate" />}
 			<CreateComment postId={postId} incrementCounter={incrementCounter} />
-			{toggleComments && visibleComments}
-			{toggleComments && !loadMoreComments && numOfComments > 2 && (
-				<div
-					className="pointer blue-on-hover margin-top"
-					onClick={() => setLoadMoreComments(prevState => !prevState)}
-				>
-					View more...
-				</div>
-			)}
-			{toggleComments && loadMoreComments && hiddenComments}
+			{toggleComments && renderComments()}
+			{viewMoreBtn()}
 		</section>
 	)
 }

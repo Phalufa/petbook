@@ -1,6 +1,5 @@
 import { options, API_URL } from './helpers'
 
-// Pagination
 const getPostPage = async postPage => {
 	try {
 		const response = await fetch(

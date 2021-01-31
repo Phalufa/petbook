@@ -25,7 +25,7 @@ const PostList = () => {
 		},
 		[hasEnded]
 	)
-
+	
 	// reset posts and page counter on each render
 	useEffect(() => {
 		return () => {

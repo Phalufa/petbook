@@ -1,4 +1,4 @@
-import { userActionTypes } from '../actions/actionTypes'
+import { userActionTypes as act } from '../actions/actionTypes'
 import { authentication as auth } from '../../services/helpers'
 
 const initialState = {
@@ -12,39 +12,31 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case userActionTypes.GET_USER_DETAILS_REQUEST:
-			return { ...state }
-		case userActionTypes.GET_USER_DETAILS_SUCCESS:
+		case act.GET_USER_DETAILS_SUCCESS: {
+			let { firstName, lastName, email, id, image } = action.payload
 			return {
 				...state,
 				username: auth.getUser(),
-				firstName: action.payload.firstName,
-				lastName: action.payload.lastName,
-				email: action.payload.email,
-				id: action.payload.id,
-				image: action.payload.image
+				firstName,
+				lastName,
+				email,
+				id,
+				image
 			}
-		case userActionTypes.GET_USER_DETAILS_FAILED:
-			return { ...state }
-		case userActionTypes.UPDATE_USER_DETAILS_REQUEST:
-			return { ...state }
-		case userActionTypes.UPDATE_USER_DETAILS_SUCCESS:
+		}
+		case act.UPDATE_USER_DETAILS_SUCCESS: {
+			let { firstName, lastName, email, id, image } = action.payload
 			return {
 				...state,
 				username: auth.getUser(),
-				firstName: action.payload.firstName,
-				lastName: action.payload.lastName,
-				email: action.payload.email,
-				id: action.payload.id,
-				image: action.payload.image
+				firstName,
+				lastName,
+				email,
+				id,
+				image
 			}
-		case userActionTypes.UPDATE_USER_DETAILS_FAILED:
-			return { ...state }
-		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_REQUEST:
-			return { ...state }
-		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_SUCCESS:
-			return { ...state }
-		case userActionTypes.UPLOAD_USER_PROFILE_IMAGE_FAILED:
+		}
+		case act.UPLOAD_USER_PROFILE_IMAGE_SUCCESS:
 			return { ...state }
 		default:
 			return state

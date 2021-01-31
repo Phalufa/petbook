@@ -1,5 +1,18 @@
 import { options, API_URL } from './helpers'
 
+const getCommentPage = async (postId, commentPage) => {
+	try {
+		const response = await fetch(
+			`${API_URL}comments/${+postId}/page`,
+			options.advancedIncAuthAndBody('POST', JSON.stringify(commentPage))
+		)
+		const data = await response.json()
+		return data
+	} catch (error) {
+		return error
+	}
+}
+
 const getComment = async commentId => {
 	try {
 		const getCommentResponse = await fetch(
@@ -100,6 +113,7 @@ const deleteComment = async commentId => {
 }
 
 export const commentService = {
+	getCommentPage,
 	getComment,
 	getAllPostComments,
 	getAllUserComments,
