@@ -12,7 +12,7 @@ const CommentList = ({
 	incrementCounter,
 	decrementCounter
 }) => {
-	const postsComments = useSelector(state => state.comments.postsComments)
+	const commentsOfPost = useSelector(state => state.comments.byPostsIds)
 	const [pageNumber, setPageNumber] = useState(0)
 	const dispatch = useDispatch()
 
@@ -30,8 +30,8 @@ const CommentList = ({
 	// renders the comments after the post object
 	// that contains the comments has been initialized
 	const renderComments = () => {
-		if (postsComments[postId]) {
-			const { comments } = postsComments[postId]
+		if (commentsOfPost[postId]) {
+			const { comments } = commentsOfPost[postId]
 			return comments.map(c => {
 				return (
 					<Comment key={c.id} comment={c} decrementCounter={decrementCounter} />
@@ -43,11 +43,11 @@ const CommentList = ({
 	// checks if it is the last page after the post object
 	// that contains the last page has been initialized
 	const lastPage = () => {
-		if (postsComments[postId]) return postsComments[postId].lastPage
+		if (commentsOfPost[postId]) return commentsOfPost[postId].lastPage
 	}
 
 	const viewMoreBtn = () => {
-		if (!numOfComments) return
+		if (numOfComments < 3) return
 		return (
 			!lastPage() &&
 			toggleComments && (
@@ -60,7 +60,7 @@ const CommentList = ({
 
 	return (
 		<section className="CommentList">
-			{postsComments[postId] && <hr className="divider rotate" />}
+			{commentsOfPost[postId] && <hr className="divider rotate" />}
 			<CreateComment postId={postId} incrementCounter={incrementCounter} />
 			{toggleComments && renderComments()}
 			{viewMoreBtn()}

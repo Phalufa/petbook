@@ -3,7 +3,7 @@ import Post from '../../Post/Post'
 import './PostList.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePostPagination } from '../../../hooks'
-import { postActions } from '../../../store/actions'
+import { postActions, commentActions } from '../../../store/actions'
 
 const PostList = () => {
 	const pageNumber = useSelector(state => state.posts.pageNumber)
@@ -25,11 +25,12 @@ const PostList = () => {
 		},
 		[hasEnded]
 	)
-	
+
 	// reset posts and page counter on each render
 	useEffect(() => {
 		return () => {
 			dispatch(postActions.clearPosts())
+			dispatch(commentActions.clearComments())
 			setPageCounter(0)
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

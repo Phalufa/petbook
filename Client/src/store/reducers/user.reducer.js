@@ -1,4 +1,4 @@
-import { userActionTypes as act } from '../actions/actionTypes'
+import { userActionTypes as ACTION } from '../actions/actionTypes'
 import { authentication as auth } from '../../services/helpers'
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case act.GET_USER_DETAILS_SUCCESS: {
+		case ACTION.GET_USER_DETAILS_SUCCESS: {
 			let { firstName, lastName, email, id, image } = action.payload
 			return {
 				...state,
@@ -24,7 +24,7 @@ export const userReducer = (state = initialState, action) => {
 				image
 			}
 		}
-		case act.UPDATE_USER_DETAILS_SUCCESS: {
+		case ACTION.UPDATE_USER_DETAILS_SUCCESS: {
 			let { firstName, lastName, email, id, image } = action.payload
 			return {
 				...state,
@@ -36,7 +36,7 @@ export const userReducer = (state = initialState, action) => {
 				image
 			}
 		}
-		case act.UPLOAD_USER_PROFILE_IMAGE_SUCCESS:
+		case ACTION.UPLOAD_USER_PROFILE_IMAGE_SUCCESS:
 			return { ...state }
 		default:
 			return state

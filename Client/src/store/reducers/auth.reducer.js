@@ -1,4 +1,4 @@
-import { authActionTypes as act } from '../actions/actionTypes'
+import { authActionTypes as ACTION } from '../actions/actionTypes'
 import { authentication as auth } from '../../services/helpers'
 
 const initialState = {
@@ -8,21 +8,21 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case act.LOGIN_REQUEST:
+		case ACTION.LOGIN_REQUEST:
 			return { ...state, user: null }
-		case act.LOGIN_SUCCESS:
+		case ACTION.LOGIN_SUCCESS:
 			return {
 				...state,
 				loggedIn: true,
 				user: action.payload.user
 			}
-		case act.LOGIN_FAILED:
+		case ACTION.LOGIN_FAILED:
 			return {
 				...state,
 				loggedIn: false,
 				user: null
 			}
-		case act.LOGOUT:
+		case ACTION.LOGOUT:
 			return {}
 		default:
 			return state

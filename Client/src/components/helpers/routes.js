@@ -5,6 +5,7 @@ import Register from '../Registration/Registration'
 import Verification from '../Verification/Verification'
 import PostList from '../containers/PostList/PostList'
 import MyPosts from '../Post/MyPosts/MyPosts'
+import MyComments from '../Comment/MyComments/MyComments'
 
 /**
  * app routes are imported in Main component
@@ -15,6 +16,7 @@ export const appRoutes = isLoggedIn => {
 		<Switch>
 			<Route path="/user/profile" component={Profile} />
 			<Route path="/user/posts" component={MyPosts} />
+			<Route path="/user/comments" component={MyComments} />
 			<Route path="/posts" component={PostList} />
 			<Redirect to="/home" />
 		</Switch>

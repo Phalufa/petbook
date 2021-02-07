@@ -1,4 +1,4 @@
-import { postActionTypes as act } from '../actions/actionTypes'
+import { postActionTypes as ACTION } from '../actions/actionTypes'
 
 const initialState = {
 	posts: {
@@ -12,7 +12,7 @@ const initialState = {
 export const postReducer = (state = initialState, action) => {
 	let a, u
 	switch (action.type) {
-		case act.GET_POST_PAGE_SUCCESS:
+		case ACTION.GET_POST_PAGE_SUCCESS:
 			a = filterEquals([...state.posts.all, ...action.payload.posts.all])
 			return {
 				...state,
@@ -20,12 +20,12 @@ export const postReducer = (state = initialState, action) => {
 				lastPage: action.payload.lastPage,
 				pageNumber: action.payload.pageNumber
 			}
-		case act.GET_ALL_POSTS_SUCCESS:
+		case ACTION.GET_ALL_POSTS_SUCCESS:
 			return { ...state, posts: action.payload.posts }
 
-		case act.GET_USER_POSTS_SUCCESS:
+		case ACTION.GET_USER_POSTS_SUCCESS:
 			return { ...state, posts: action.payload.posts }
-		case act.CREATE_POST_SUCCESS:
+		case ACTION.CREATE_POST_SUCCESS:
 			return {
 				...state,
 				posts: {
@@ -33,7 +33,7 @@ export const postReducer = (state = initialState, action) => {
 					all: [action.payload.newPost, ...state.posts.all]
 				}
 			}
-		case act.DELETE_POST_SUCCESS:
+		case ACTION.DELETE_POST_SUCCESS:
 			u = [...state.posts.user].filter(
 				p => p.postId !== action.payload.deletedPostId
 			)
@@ -41,7 +41,7 @@ export const postReducer = (state = initialState, action) => {
 				...state,
 				posts: { user: u, all: [...state.posts.all] }
 			}
-		case act.UPDATE_POST_SUCCESS:
+		case ACTION.UPDATE_POST_SUCCESS:
 			u = [...state.posts.user].map(p => {
 				if (p.postId !== action.payload.updatedPost.postId) return p
 				else return { ...p, ...action.payload.updatedPost }
@@ -50,7 +50,7 @@ export const postReducer = (state = initialState, action) => {
 				...state,
 				posts: { user: u, all: [...state.posts.all] }
 			}
-		case act.CLEAR_POSTS:
+		case ACTION.CLEAR_POSTS:
 			return {
 				...state,
 				posts: { user: [], all: [] },

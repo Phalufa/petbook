@@ -1,6 +1,6 @@
 import { request, success, fail } from '../helpers'
 import { commentService } from '../../services'
-import { commentActionTypes } from './actionTypes'
+import { commentActionTypes as ACTION } from './actionTypes'
 import {
 	refreshTokenInterceptor,
 	refreshTokenInterceptorIncBody
@@ -11,7 +11,7 @@ const commentPagination = (dispatch, postId, commentPage) => {
 	commentService.getCommentPage(postId, page).then(result => {
 		if (result) {
 			dispatch(
-				success(commentActionTypes.GET_COMMENT_PAGE_SUCCESS, {
+				success(ACTION.GET_COMMENT_PAGE_SUCCESS, {
 					comments: result.content,
 					lastPage: result.last,
 					pageNumber: result.pageable.pageNumber
@@ -19,14 +19,14 @@ const commentPagination = (dispatch, postId, commentPage) => {
 			)
 		} else {
 			const err = 'Unauthorized'
-			dispatch(fail(commentActionTypes.GET_COMMENT_PAGE_FAILED, { error: err }))
+			dispatch(fail(ACTION.GET_COMMENT_PAGE_FAILED, { error: err }))
 		}
 	})
 }
 
 const getCommentPage = (postId, commentPage) =>
 	refreshTokenInterceptorIncBody(
-		request(commentActionTypes.GET_COMMENT_PAGE_REQUEST, {}),
+		request(ACTION.GET_COMMENT_PAGE_REQUEST, {}),
 		commentPagination,
 		postId,
 		commentPage
@@ -36,13 +36,13 @@ const getAComment = (dispatch, commentId) => {
 	commentService.getComment(commentId).then(result => {
 		if (result instanceof Object)
 			dispatch(
-				success(commentActionTypes.GET_COMMENT_SUCCESS, {
+				success(ACTION.GET_COMMENT_SUCCESS, {
 					comment: result
 				})
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.GET_COMMENT_FAILED, {
+				fail(ACTION.GET_COMMENT_FAILED, {
 					error: result
 				})
 			)
@@ -51,7 +51,7 @@ const getAComment = (dispatch, commentId) => {
 
 const getComment = () =>
 	refreshTokenInterceptor(
-		request(commentActionTypes.GET_COMMENT_REQUEST, {}),
+		request(ACTION.GET_COMMENT_REQUEST, {}),
 		getAComment
 	)
 
@@ -59,18 +59,18 @@ const createAComment = (dispatch, commentRequest) => {
 	commentService.createComment(commentRequest).then(result => {
 		if (result instanceof Object)
 			dispatch(
-				success(commentActionTypes.CREATE_COMMENT_SUCCESS, { comment: result })
+				success(ACTION.CREATE_COMMENT_SUCCESS, { comment: result })
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.CREATE_COMMENT_FAILED, { error: result })
+				fail(ACTION.CREATE_COMMENT_FAILED, { error: result })
 			)
 	})
 }
 
 const createComment = commentRequest =>
 	refreshTokenInterceptorIncBody(
-		request(commentActionTypes.CREATE_COMMENT_REQUEST, {}),
+		request(ACTION.CREATE_COMMENT_REQUEST, {}),
 		createAComment,
 		commentRequest
 	)
@@ -79,20 +79,20 @@ const getCommentsOfPost = (dispatch, postId) => {
 	commentService.getAllPostComments(postId).then(result => {
 		if (Array.isArray(result))
 			dispatch(
-				success(commentActionTypes.GET_ALL_POST_COMMENTS_SUCCESS, {
+				success(ACTION.GET_ALL_POST_COMMENTS_SUCCESS, {
 					comments: result
 				})
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.GET_ALL_POST_COMMENTS_FAILED, { error: result })
+				fail(ACTION.GET_ALL_POST_COMMENTS_FAILED, { error: result })
 			)
 	})
 }
 
 const getPostComments = postId =>
 	refreshTokenInterceptorIncBody(
-		request(commentActionTypes.GET_ALL_POST_COMMENTS_REQUEST, {}),
+		request(ACTION.GET_ALL_POST_COMMENTS_REQUEST, {}),
 		getCommentsOfPost,
 		postId
 	)
@@ -101,20 +101,20 @@ const getUserComments = dispatch => {
 	commentService.getAllUserComments().then(result => {
 		if (Array.isArray(result))
 			dispatch(
-				success(commentActionTypes.GET_USER_COMMENTS_SUCCESS, {
+				success(ACTION.GET_USER_COMMENTS_SUCCESS, {
 					comments: result
 				})
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.GET_USER_COMMENTS_FAILED, { error: result })
+				fail(ACTION.GET_USER_COMMENTS_FAILED, { error: result })
 			)
 	})
 }
 
 const getAllUserComments = () =>
 	refreshTokenInterceptor(
-		request(commentActionTypes.GET_USER_COMMENTS_REQUEST, {}),
+		request(ACTION.GET_USER_COMMENTS_REQUEST, {}),
 		getUserComments
 	)
 
@@ -122,18 +122,18 @@ const updateAComment = (dispatch, commentRequest, commentId) => {
 	commentService.updateComment(commentRequest, commentId).then(result => {
 		if (result instanceof Object)
 			dispatch(
-				success(commentActionTypes.UPDATE_COMMENT_SUCCESS, { comment: result })
+				success(ACTION.UPDATE_COMMENT_SUCCESS, { comment: result })
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.UPDATE_COMMENT_FAILED, { error: result })
+				fail(ACTION.UPDATE_COMMENT_FAILED, { error: result })
 			)
 	})
 }
 
 const updateComment = (commentRequest, commentId) =>
 	refreshTokenInterceptorIncBody(
-		request(commentActionTypes.UPDATE_COMMENT_REQUEST, {}),
+		request(ACTION.UPDATE_COMMENT_REQUEST, {}),
 		updateAComment,
 		commentRequest,
 		commentId
@@ -143,7 +143,7 @@ const deleteAComment = (dispatch, commentId, postId) => {
 	commentService.deleteComment(commentId).then(result => {
 		if (result.startsWith('Comment'))
 			dispatch(
-				success(commentActionTypes.DELETE_COMMENT_SUCCESS, {
+				success(ACTION.DELETE_COMMENT_SUCCESS, {
 					message: result,
 					commentId,
 					postId
@@ -151,18 +151,22 @@ const deleteAComment = (dispatch, commentId, postId) => {
 			)
 		else
 			dispatch(
-				fail(commentActionTypes.DELETE_COMMENT_FAILED, { error: result })
+				fail(ACTION.DELETE_COMMENT_FAILED, { error: result })
 			)
 	})
 }
 
 const deleteComment = (commentId, postId) =>
 	refreshTokenInterceptorIncBody(
-		request(commentActionTypes.DELETE_COMMENT_REQUEST, {}),
+		request(ACTION.DELETE_COMMENT_REQUEST, {}),
 		deleteAComment,
 		commentId,
 		postId
 	)
+
+	const clearComments = () => {
+		return dispatch => dispatch({ type: ACTION.CLEAR_COMMENTS })
+	}
 
 export const commentActions = {
 	getCommentPage,
@@ -171,5 +175,6 @@ export const commentActions = {
 	deleteComment,
 	getAllUserComments,
 	createComment,
-	getPostComments
+	getPostComments,
+	clearComments
 }

@@ -7,9 +7,7 @@ import CreatePost from '../../Post/CreatePost/CreatePost'
 import Notification from '../../UI/Notification/Notification'
 
 const Main = ({ createPost, toggleCreatePostComponent }) => {
-	// user loggedIn state
 	const isLoggedIn = useSelector(state => state.auth.loggedIn)
-
 	const routes = appRoutes(isLoggedIn)
 
 	return (
